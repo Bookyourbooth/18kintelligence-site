@@ -26,7 +26,7 @@ npm run dev
 
 ## Deploy on Vercel
 
-1. vercel.com → Add New → Project → import `Bookyourbooth/who18k-site`. Framework preset: Next.js.
+1. vercel.com → Add New → Project → import `Bookyourbooth/18kintelligence-site`. Framework preset: Next.js.
 2. Add everything from `.env.example` under Settings → Environment Variables, then deploy.
 3. Settings → Domains → add your domain and follow the DNS records Vercel shows.
 4. Resend → Domains: add the same domain, then point `RESEND_FROM` at it.

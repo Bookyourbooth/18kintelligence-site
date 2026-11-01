@@ -22,7 +22,7 @@ export function mailer() {
   if (!key) return null;
   return {
     resend: new Resend(key),
-    from: process.env.RESEND_FROM ?? "18K Intelligence <hello@bybhub.io>",
+    from: process.env.RESEND_FROM ?? "18K Intelligence <hello@18kintelligence.com>",
     ownerTo: process.env.OWNER_EMAIL ?? "",
     segmentId: process.env.RESEND_SEGMENT_ID ?? "",
   };
