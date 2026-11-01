@@ -24,12 +24,18 @@ cp .env.example .env.local   # fill in the values
 npm run dev
 ```
 
-## Deploy on Vercel
+## Deploy on Hostinger
 
-1. vercel.com → Add New → Project → import `Bookyourbooth/18kintelligence-site`. Framework preset: Next.js.
-2. Add everything from `.env.example` under Settings → Environment Variables, then deploy.
-3. Settings → Domains → add your domain and follow the DNS records Vercel shows.
-4. Resend → Domains: add the same domain, then point `RESEND_FROM` at it.
+1. hPanel → Websites → Add website → Node.js app → import from GitHub, and pick `Bookyourbooth/18kintelligence-site` (branch `main`).
+2. Node version: **22**. Build command: `npm run build`. Start command: `npm start`.
+3. Add every variable from `.env.example` in the app's environment settings, then deploy.
+   Every push to `main` redeploys.
+4. Connect `18kintelligence.com`. Keep DNS at GoDaddy and add the A/CNAME records Hostinger shows.
+   Don't switch the domain's nameservers to Hostinger without first copying the four Resend
+   records (`resend._domainkey`, `send` MX and TXT, `rsend`) across, or email stops sending.
+
+`next.config.ts` runs Turbopack's plugin work on threads, because Hostinger's build host kills the
+child processes it would otherwise spawn. Don't remove it.
 
 `CAL_CONSULT_URL` is read when the page is built, so redeploy after changing it.
 

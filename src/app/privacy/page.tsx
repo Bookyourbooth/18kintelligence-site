@@ -27,7 +27,7 @@ export default function Privacy() {
         <h2>Who processes it</h2>
         <p>
           Emails and the mailing list run on Resend, payments on Stripe, call bookings on Cal.com, and the site is hosted on
-          Vercel. I don&apos;t sell your information.
+          Hostinger. I don&apos;t sell your information.
         </p>
         <h2>Your choices</h2>
         <p>
