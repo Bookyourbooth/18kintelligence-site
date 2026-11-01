@@ -8,17 +8,17 @@ const SOURCES = {
     body: (kitUrl: string) =>
       `<p>Hey,</p><p>Thanks for joining. Here's your Creator-Builder Starter Kit: my gear list, editing presets, the AI tools I build with and a first-website checklist.</p>
 ${kitUrl ? button(kitUrl, "Get the kit") : "<p>Your download link is on its way in a separate email.</p>"}
-<p>Every week I'll send you one email on building, filming and marketing. Reply any time and tell me what you're working on.</p><p>who18k</p>`,
+<p>Every week I'll send you one email on building, filming and marketing. Reply any time and tell me what you're working on.</p><p>Kwame<br>18K Intelligence</p>`,
   },
   newsletter: {
-    subject: "You're on the who18k list",
+    subject: "You're on the 18K Intelligence list",
     body: () =>
-      `<p>Hey,</p><p>You're in. Once a week I'll send you what I'm building, filming and learning, with the tools and workflows behind it.</p><p>Reply any time and tell me what you're working on.</p><p>who18k</p>`,
+      `<p>Hey,</p><p>You're in. Once a week I'll send you what I'm building, filming and learning, with the tools and workflows behind it.</p><p>Reply any time and tell me what you're working on.</p><p>Kwame<br>18K Intelligence</p>`,
   },
   waitlist: {
     subject: "You're on the 18K Club waitlist",
     body: () =>
-      `<p>Hey,</p><p>You're on the waitlist for the 18K Club. You'll hear first when doors open, and founding members keep their price for life.</p><p>who18k</p>`,
+      `<p>Hey,</p><p>You're on the waitlist for the 18K Club. You'll hear first when doors open, and founding members keep their price for life.</p><p>Kwame<br>18K Intelligence</p>`,
   },
 } as const;
 

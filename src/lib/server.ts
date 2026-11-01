@@ -13,7 +13,7 @@ export const stripe = process.env.STRIPE_SECRET_KEY
   ? new Stripe(process.env.STRIPE_SECRET_KEY, {
       // Pinned: Stripe ships breaking changes behind version dates.
       apiVersion: "2026-08-26.dahlia",
-      appInfo: { name: "who18k-site" },
+      appInfo: { name: "18kintelligence-site" },
     })
   : null;
 
@@ -22,7 +22,7 @@ export function mailer() {
   if (!key) return null;
   return {
     resend: new Resend(key),
-    from: process.env.RESEND_FROM ?? "who18k <hello@bybhub.io>",
+    from: process.env.RESEND_FROM ?? "18K Intelligence <hello@bybhub.io>",
     ownerTo: process.env.OWNER_EMAIL ?? "",
     segmentId: process.env.RESEND_SEGMENT_ID ?? "",
   };
@@ -45,18 +45,18 @@ export function button(href: string, label: string): string {
   return `<p style="margin:24px 0"><a href="${esc(href)}" style="background:#d4af5a;color:#17130a;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:600">${esc(label)}</a></p>`;
 }
 
-/** A plain, readable email body in the who18k look. */
+/** A plain, readable email body in the 18K Intelligence look. */
 export function layout(inner: string): string {
   return `<!doctype html><html><body style="margin:0;background:#0e0d0f;font-family:Helvetica,Arial,sans-serif;color:#f3eee6">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px"><tr><td align="center">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#17151a;border:1px solid #2d2931;border-radius:12px">
-<tr><td style="padding:24px 32px;border-bottom:1px solid #2d2931;font-weight:800;font-size:22px;letter-spacing:-1px">who<span style="color:#d4af5a">18k</span></td></tr>
+<tr><td style="padding:24px 32px;border-bottom:1px solid #2d2931;font-weight:800;font-size:22px;letter-spacing:-1px"><span style="color:#d4af5a">18k</span>intelligence</td></tr>
 <tr><td style="padding:28px 32px;font-size:15px;line-height:1.65;color:#d9d3c9">${inner}</td></tr>
 </table></td></tr></table></body></html>`;
 }
 
 /**
- * Adds or updates a contact in the "who18k list" segment. Best effort: a
+ * Adds or updates a contact in the "18K Intelligence list" segment. Best effort: a
  * failure is logged, never shown to the visitor, because the email they
  * asked for has already gone.
  */

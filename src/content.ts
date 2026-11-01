@@ -1,5 +1,5 @@
 /**
- * Everything on the site that is a fact about who18k rather than design.
+ * Everything on the site that is a fact about 18K Intelligence rather than design.
  *
  * Sections built on lists (stats, videos, testimonials) are hidden while
  * their list is empty, so the live site never shows invented numbers or
@@ -30,12 +30,12 @@ export type Product = {
 export const CURRENCY = "usd";
 
 export const site = {
-  name: "who18k",
+  name: "18K Intelligence",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   /** Shown in the footer and privacy page when set. */
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
-  instagram: "https://instagram.com/who18k",
-  socials: [{ label: "Instagram", href: "https://instagram.com/who18k" }] as { label: string; href: string }[],
+  instagram: "https://instagram.com/18kintelligence",
+  socials: [{ label: "Instagram", href: "https://instagram.com/18kintelligence" }] as { label: string; href: string }[],
 
   /** What the free Starter Kit email delivers. Keep in step with KIT_URL. */
   kit: [

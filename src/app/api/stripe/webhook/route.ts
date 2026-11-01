@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     html: layout(
       `<p>Hey${name ? ` ${esc(name.split(/\s+/)[0])}` : ""},</p><p>Thanks for buying <b>${esc(product.name)}</b>. Here's your access. Keep this email: the link is yours for life, including future updates.</p>
 ${link ? button(link, `Open ${product.name}`) : "<p>Your access link is on its way in a separate email.</p>"}
-<p>Questions or stuck on something? Just reply to this email.</p><p>who18k</p>`,
+<p>Questions or stuck on something? Just reply to this email.</p><p>Kwame<br>18K Intelligence</p>`,
     ),
   });
   if (sent.error) {

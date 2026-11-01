@@ -25,7 +25,7 @@ export default async function Thanks({ searchParams }: { searchParams: Promise<{
     <main className="gut">
       <div className="wrap page">
         <a className="label g" href="/" style={{ textDecoration: "none" }}>
-          ← who18k
+          ← 18K Intelligence
         </a>
         <h1>{product ? `You're in. ${product} is yours.` : "Thank you for your order."}</h1>
         <p className="lede">
@@ -40,7 +40,7 @@ export default async function Thanks({ searchParams }: { searchParams: Promise<{
         <p>Can&apos;t see it? Check your spam folder, or reply to your Stripe receipt and I&apos;ll sort it out.</p>
         <p>
           <a className="btn au" href="/">
-            Back to who18k
+            Back to 18K Intelligence
           </a>
         </p>
       </div>

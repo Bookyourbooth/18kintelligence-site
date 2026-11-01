@@ -18,7 +18,7 @@ export default function Home() {
       <header className="nav gut">
         <div className="wrap nav-in">
           <a className="wordmark" href="#top">
-            who<b>18k</b>
+            <b>18k</b>intelligence
           </a>
           <nav className="nav-links" aria-label="Main">
             <a href="#start">Start here</a>
@@ -71,7 +71,7 @@ export default function Home() {
                     <span>750</span>
                     <span>FREE KIT</span>
                   </span>
-                  <span className="label">who18k</span>
+                  <span className="label">18kintelligence</span>
                 </div>
                 <div className="kit-title">
                   Creator-Builder
@@ -98,7 +98,7 @@ export default function Home() {
           <div className="proof gut">
             <div className="wrap proof-in" style={{ "--cols": site.stats.length + 1 } as CSSProperties}>
               <div>
-                <b>@who18k</b>
+                <b>@18kintelligence</b>
                 <span>on Instagram</span>
               </div>
               {site.stats.map((s) => (
@@ -172,7 +172,7 @@ export default function Home() {
               <div className="reels-foot">
                 <span>New videos every week.</span>
                 <a className="btn" href={site.instagram} target="_blank" rel="noopener noreferrer">
-                  Follow @who18k
+                  Follow @18kintelligence
                 </a>
               </div>
             </div>
@@ -344,14 +344,14 @@ export default function Home() {
         <section id="about" className="gut" aria-labelledby="ab-h" style={{ paddingTop: 0 }}>
           <div className="wrap about">
             <div className="about-photo">
-              {/* Swap for <img src="/portrait.jpg" alt="who18k" /> once the photo is in /public. */}
+              {/* Swap for <img src="/portrait.jpg" alt="Kwame, 18K Intelligence" /> once the photo is in /public. */}
               <span className="monogram" aria-hidden="true">
                 18k
               </span>
             </div>
             <div style={{ display: "grid", gap: "20px" }}>
               <span className="label g">About</span>
-              <h2 id="ab-h">Hey, I&apos;m who18k.</h2>
+              <h2 id="ab-h">Hey, I&apos;m Kwame.</h2>
               <div className="about-copy">
                 <p>
                   I&apos;m a <strong>creative tech entrepreneur</strong>. I build businesses, websites and apps, and I&apos;m a{" "}
@@ -413,7 +413,7 @@ export default function Home() {
           <div className="foot-top">
             <div style={{ display: "grid", gap: "14px" }}>
               <a className="wordmark" href="#top" style={{ fontSize: "clamp(2.6rem,7vw,4rem)" }}>
-                who<b>18k</b>
+                <b>18k</b>intelligence
               </a>
               <p style={{ color: "var(--mute)", maxWidth: "40ch" }}>One email a week on building, filming and marketing.</p>
             </div>
@@ -429,7 +429,7 @@ export default function Home() {
               {site.email && <a href={`mailto:${site.email}`}>{site.email}</a>}
             </div>
             <span>
-              © {new Date().getFullYear()} who18k · <a href="/privacy">Privacy</a>
+              © {new Date().getFullYear()} 18K Intelligence · <a href="/privacy">Privacy</a>
             </span>
           </div>
         </div>

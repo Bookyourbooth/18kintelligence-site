@@ -8,10 +8,10 @@ export default function Privacy() {
     <main className="gut">
       <div className="wrap page">
         <a className="label g" href="/" style={{ textDecoration: "none" }}>
-          ← who18k
+          ← 18K Intelligence
         </a>
         <h1>Privacy policy</h1>
-        <p>This page explains what who18k collects through this website and what I do with it.</p>
+        <p>This page explains what 18K Intelligence collects through this website and what I do with it.</p>
         <h2>What I collect</h2>
         <ul>
           <li>Your email address when you get the free kit, join the weekly email or join the community waitlist.</li>

@@ -1,4 +1,4 @@
-# who18k website
+# 18K Intelligence website
 
 Personal brand site: free Starter Kit and weekly email, digital products sold through Stripe, paid 1:1 calls
 through Cal.com, and the 18K Club waitlist. Next.js 16 (App Router) · React 19 · TypeScript. Node 22 (`.nvmrc`).
@@ -6,7 +6,7 @@ through Cal.com, and the 18K Club waitlist. Next.js 16 (App Router) · React 19 
 ## What it does
 
 - **Email signups** (`POST /api/subscribe`): hero (kit), footer (newsletter) and community (waitlist) forms.
-  Each sends its own email through Resend and saves the contact to the "who18k list" segment with a `source`.
+  Each sends its own email through Resend and saves the contact to the "18K Intelligence list" segment with a `source`.
 - **Products** (`src/content.ts`): name, copy, price and a `live` switch. A product only sells when `live: true`
   and its `ACCESS_URL_<SLUG>` is set; until then the card says "Coming soon" and points to the list.
 - **Checkout** (`POST /api/checkout`): Stripe Checkout with the price taken from `content.ts` on the server.
