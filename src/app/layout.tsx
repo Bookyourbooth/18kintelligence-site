@@ -1,0 +1,29 @@
+import type { Metadata, Viewport } from "next";
+import { Bricolage_Grotesque, DM_Mono, Instrument_Sans } from "next/font/google";
+import { site } from "@/content";
+import "./globals.css";
+
+const display = Bricolage_Grotesque({ subsets: ["latin"], axes: ["opsz"], variable: "--f-display", display: "swap" });
+const body = Instrument_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--f-body", display: "swap" });
+const mono = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--f-mono", display: "swap" });
+
+const description =
+  "who18k: creative tech entrepreneur and filmmaker. Free Starter Kit, courses on filming and building with AI, and 1:1 strategy calls.";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
+  title: { default: "who18k · Build, film, teach", template: "%s · who18k" },
+  description,
+  openGraph: { title: "who18k · I build businesses, apps and films", description, siteName: "who18k", type: "website" },
+  twitter: { card: "summary_large_image", title: "who18k · I build businesses, apps and films", description },
+};
+
+export const viewport: Viewport = { themeColor: "#0E0D0F", viewportFit: "cover" };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+      <body>{children}</body>
+    </html>
+  );
+}
