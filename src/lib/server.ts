@@ -22,8 +22,8 @@ export function mailer() {
   if (!key) return null;
   return {
     resend: new Resend(key),
-    from: process.env.RESEND_FROM ?? "18K Intelligence <hello@18kintelligence.com>",
-    ownerTo: process.env.OWNER_EMAIL ?? "",
+    from: senderAddress(process.env.RESEND_FROM, "18K Intelligence", "hello@18kintelligence.com"),
+    ownerTo: settingEmail(process.env.OWNER_EMAIL),
     segmentId: process.env.RESEND_SEGMENT_ID ?? "",
   };
 }
@@ -31,6 +31,23 @@ export function mailer() {
 /** The link a buyer gets after paying, from ACCESS_URL_<SLUG> (dashes become underscores). */
 export function accessUrl(slug: string): string {
   return process.env[`ACCESS_URL_${slug.toUpperCase().replace(/-/g, "_")}`] ?? "";
+}
+
+/**
+ * Hosting panels mangle values with spaces or angle brackets: Hostinger
+ * stores `Brand <hello@x.com>` as `<hello@x.com>`. Accept a bare address,
+ * a bracketed one or the full form, and always send with the brand name.
+ */
+export function senderAddress(raw: string | undefined, name: string, fallback: string): string {
+  const v = (raw ?? "").trim().replace(/^["']|["']$/g, "");
+  const email = v.match(/[^\s<>"']+@[^\s<>"']+\.[^\s<>"']+/)?.[0] ?? fallback;
+  return `${name} <${email}>`;
+}
+
+/** A real address from a setting, or "" if it's empty or still placeholder text. */
+export function settingEmail(raw: string | undefined): string {
+  const v = (raw ?? "").trim();
+  return /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(v) ? v : "";
 }
 
 const ENTITIES: Record<string, string> = { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" };
