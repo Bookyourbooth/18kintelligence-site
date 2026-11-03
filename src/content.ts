@@ -167,14 +167,15 @@ export const site = {
 };
 
 /** The kit's parts that have content, in the order they're listed everywhere. */
-export function kitItems(): { id: string; item: string; format: string }[] {
+/** `phrase` is how the welcome email names each part. */
+export function kitItems(): { id: string; item: string; format: string; phrase: string }[] {
   const k = site.kitParts;
   return [
-    k.gear.length > 0 && { id: "gear", item: "My filmmaking gear list", format: "LIST" },
-    k.presetsFile && { id: "presets", item: "Editing presets & LUTs", format: "PACK" },
-    k.aiTools.length > 0 && { id: "ai-tools", item: "The AI tools I build with", format: "GUIDE" },
-    k.checklist.length > 0 && { id: "checklist", item: "First-website checklist", format: "CHECKLIST" },
-  ].filter((x): x is { id: string; item: string; format: string } => Boolean(x));
+    k.gear.length > 0 && { id: "gear", item: "My filmmaking gear list", format: "LIST", phrase: "my filmmaking gear list" },
+    k.presetsFile && { id: "presets", item: "Editing presets & LUTs", format: "PACK", phrase: "my editing presets and LUTs" },
+    k.aiTools.length > 0 && { id: "ai-tools", item: "The AI tools I build with", format: "GUIDE", phrase: "the AI tools I build with" },
+    k.checklist.length > 0 && { id: "checklist", item: "First-website checklist", format: "CHECKLIST", phrase: "a first-website checklist" },
+  ].filter((x): x is { id: string; item: string; format: string; phrase: string } => Boolean(x));
 }
 
 export function formatPrice(minor: number): string {
