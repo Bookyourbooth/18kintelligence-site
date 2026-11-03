@@ -7,30 +7,33 @@ import { useState } from "react";
  * takes the payment through the connected Stripe account; the chosen focus
  * rides along as the booking's notes.
  */
-export function BookCall({ calUrl, focuses }: { calUrl: string; focuses: string[] }) {
-  const [focus, setFocus] = useState(focuses[0]);
+export function BookCall({ calUrl, focuses, price, policy }: { calUrl: string; focuses: { name: string; detail: string }[]; price: string; policy: string }) {
+  const [focus, setFocus] = useState(focuses[0].name);
   const href = calUrl ? `${calUrl}${calUrl.includes("?") ? "&" : "?"}notes=${encodeURIComponent(`Focus: ${focus}`)}` : "";
 
   return (
     <>
       <fieldset className="pick">
-        <legend className="label">What do you want to focus on?</legend>
+        <legend>What do you want to focus on?</legend>
         <div className="pick-opts">
           {focuses.map((f, i) => (
-            <label key={f}>
-              <input id={`fo-${i}`} type="radio" name="focus" value={f} checked={focus === f} onChange={() => setFocus(f)} />
-              <span>{f}</span>
+            <label key={f.name}>
+              <input id={`fo-${i}`} type="radio" name="focus" value={f.name} checked={focus === f.name} onChange={() => setFocus(f.name)} />
+              <span>
+                <b>{f.name}</b>
+                {f.detail}
+              </span>
             </label>
           ))}
         </div>
       </fieldset>
-      <p style={{ color: "var(--mute)" }}>
-        Pay when you book. A short questionnaire before the call means we get straight to your plan.
-      </p>
       {href ? (
+        <>
         <a className="btn au" href={href} target="_blank" rel="noopener noreferrer">
-          Book &amp; pay
+          Book your call{price && `, ${price}`}
         </a>
+        <p className="policy">{policy}</p>
+        </>
       ) : (
         <>
           <a className="btn au" href="#join">

@@ -35,6 +35,8 @@ export const site = {
   /** Shown in the footer and privacy page when set. */
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
   instagram: "https://instagram.com/18kintelligence",
+  /** Path to a portrait in /public, e.g. "/portrait.jpg". Shown in the About section when set. */
+  portrait: "",
   socials: [{ label: "Instagram", href: "https://instagram.com/18kintelligence" }] as { label: string; href: string }[],
 
   /** What the free Starter Kit email delivers. Keep in step with KIT_URL. */
@@ -53,10 +55,16 @@ export const site = {
 
   consult: {
     length: "60 min",
-    format: "Video",
-    /** Shown on the card when set. The real price is charged by Cal.com. */
-    priceLabel: "",
-    focuses: ["Brand & content strategy", "Website or app review", "Film & production"],
+    format: "Google Meet",
+    /** Shown on the card when set. The real price is charged by Cal.com, so change both together. */
+    priceLabel: "£99",
+    /** Short form of the policy on the Cal.com event. Change both together. */
+    policy: "Free to reschedule, or a full refund if you cancel, up to 2 business days before your call.",
+    focuses: [
+      { name: "Brand & content strategy", detail: "What to post, where, and how to turn views into customers." },
+      { name: "Website or app review", detail: "A live teardown of your site or product idea, with fixes ranked by impact." },
+      { name: "Film & production", detail: "Gear, workflow and storytelling for your next shoot or campaign." },
+    ],
   },
 
   products: [

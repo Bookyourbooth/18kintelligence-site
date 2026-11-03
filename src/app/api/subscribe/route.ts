@@ -7,8 +7,13 @@ const SOURCES = {
     subject: "Your Creator-Builder Starter Kit",
     body: (kitUrl: string) =>
       `<p>Hey,</p><p>Thanks for joining. Here's your Creator-Builder Starter Kit: my gear list, editing presets, the AI tools I build with and a first-website checklist.</p>
-${kitUrl ? button(kitUrl, "Get the kit") : "<p>Your download link is on its way in a separate email.</p>"}
+${kitUrl ? button(kitUrl, "Get the kit") : "<p>I'll send your download link in a separate email shortly.</p>"}
 <p>Every week I'll send you one email on building, filming and marketing. Reply any time and tell me what you're working on.</p><p>Kwame<br>18K Intelligence</p>`,
+  },
+  courses: {
+    subject: "You're on the list for the 18K courses",
+    body: () =>
+      `<p>Hey,</p><p>You're on the list. I'll email you as soon as a course opens, before anyone else hears about it.</p><p>Reply any time and tell me what you most want to learn.</p><p>Kwame<br>18K Intelligence</p>`,
   },
   newsletter: {
     subject: "You're on the 18K Intelligence list",
@@ -22,7 +27,7 @@ ${kitUrl ? button(kitUrl, "Get the kit") : "<p>Your download link is on its way 
   },
 } as const;
 
-/** Email-list signups from the hero (free kit), footer (newsletter) and community (waitlist) forms. */
+/** Email-list signups from the hero (free kit), courses (coming soon), footer (newsletter) and community (waitlist) forms. */
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
   if (body.website) return Response.json({ ok: true }); // honeypot
@@ -51,6 +56,10 @@ export async function POST(request: Request) {
   }
 
   await saveContact(email, source);
+  // With no KIT_URL the kit can't go out automatically, so tell the owner rather than leave the promise hanging.
+  if (source === "kit" && !process.env.KIT_URL && m.ownerTo) {
+    await m.resend.emails.send({ from: m.from, to: m.ownerTo, subject: "Send the Starter Kit by hand", html: layout(`<p>${esc(email)} asked for the kit. KIT_URL isn't set, so they haven't got a download link yet.</p>`) });
+  }
   if (source === "waitlist" && m.ownerTo) {
     await m.resend.emails.send({ from: m.from, to: m.ownerTo, subject: "New 18K Club waitlist signup", html: layout(`<p>${esc(email)} joined the waitlist.</p>`) });
   }

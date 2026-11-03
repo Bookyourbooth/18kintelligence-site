@@ -4,6 +4,7 @@ import { useState, type FormEvent, type ReactNode } from "react";
 
 const DONE = {
   kit: "You're in. Check your inbox for the Starter Kit.",
+  courses: "You're on the list. I'll email you when a course opens.",
   newsletter: "You're in. Check your inbox for a welcome email.",
   waitlist: "You're on the waitlist. We'll email you when doors open.",
 } as const;
