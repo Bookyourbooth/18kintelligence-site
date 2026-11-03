@@ -8,14 +8,14 @@ const body = Instrument_Sans({ subsets: ["latin"], weight: ["400", "500", "600"]
 const mono = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--f-mono", display: "swap" });
 
 const description =
-  "18K Intelligence: creative tech entrepreneur and filmmaker. Free Starter Kit, courses on filming and building with AI, and 1:1 strategy calls.";
+  "Learn to build websites and apps, make films and market your own business with Kwame, a filmmaker and founder. Free Starter Kit, a weekly email and 1:1 strategy calls.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: "18K Intelligence · Build, film, teach", template: "%s · 18K Intelligence" },
   description,
-  openGraph: { title: "18K Intelligence · I build businesses, apps and films", description, siteName: "18K Intelligence", type: "website" },
-  twitter: { card: "summary_large_image", title: "18K Intelligence · I build businesses, apps and films", description },
+  openGraph: { title: "18K Intelligence · Build it and film it yourself", description, siteName: "18K Intelligence", type: "website" },
+  twitter: { card: "summary_large_image", title: "18K Intelligence · Build it and film it yourself", description },
 };
 
 export const viewport: Viewport = { themeColor: "#0E0D0F", viewportFit: "cover" };
