@@ -10,7 +10,7 @@ const SOURCES = {
   kit: {
     subject: "Your Creator-Builder Starter Kit",
     body: (kitUrl: string) =>
-      `<p>Hey,</p><p>Thanks for joining. Here's your Creator-Builder Starter Kit: ${listOf(kitItems().map((k) => k.item.charAt(0).toLowerCase() + k.item.slice(1)))}.</p>
+      `<p>Hey,</p><p>Thanks for joining. Here's your Creator-Builder Starter Kit: ${listOf(kitItems().map((k) => k.phrase))}.</p>
 ${kitUrl ? button(kitUrl, "Get the kit") : "<p>I'll send your download link in a separate email shortly.</p>"}
 <p>Every week I'll send you one email on building, filming and marketing. Reply any time and tell me what you're working on.</p><p>Kwame<br>18K Intelligence</p>`,
   },
