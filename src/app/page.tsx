@@ -2,7 +2,7 @@ import type { CSSProperties } from "react";
 import { BookCall } from "@/components/book-call";
 import { BuyButton } from "@/components/buy-button";
 import { CaptureForm } from "@/components/capture-form";
-import { formatPrice, site } from "@/content";
+import { formatPrice, kitItems, site } from "@/content";
 
 export default function Home() {
   const calUrl = process.env.CAL_CONSULT_URL ?? "";
@@ -72,7 +72,7 @@ export default function Home() {
                   <span className="gold">Starter Kit</span>
                 </div>
                 <ul className="kit-list">
-                  {site.kit.map((k) => (
+                  {kitItems().map((k) => (
                     <li key={k.item}>
                       <span>{k.item}</span>
                       <span>{k.format}</span>

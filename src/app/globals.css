@@ -224,3 +224,21 @@ footer .hallmark { justify-self: start; }
   .sheet.s1::after { animation: none; }
   .btn, .capture-row, .pick-opts span { transition: none; }
 }
+
+/* Starter Kit page */
+.kit-page section { padding-block: 40px 0; display: grid; gap: 18px; }
+.kit-page h3 { font-size: 1.15rem; margin-top: 12px; }
+.kit-toc { display: flex; flex-wrap: wrap; gap: 8px 20px; padding-block: 8px; }
+.kit-toc a { color: var(--mute); text-decoration-color: var(--gold-deep); }
+.kit-toc a:hover { color: var(--gold); }
+.kit-defs { margin: 0; border-top: 1px solid var(--line); }
+.kit-defs div { display: grid; grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr); gap: 4px 24px; padding-block: 14px; border-bottom: 1px solid var(--line); }
+.kit-defs dt { font-weight: 600; }
+.kit-defs dd { margin: 0; color: var(--mute); }
+@media (max-width: 560px) { .kit-defs div { grid-template-columns: minmax(0, 1fr); } }
+.checks { border: 0; margin: 0; padding: 0; display: grid; gap: 4px; min-width: 0; }
+.checks legend { font: 700 1.15rem/1.2 var(--display); padding: 0; margin: 12px 0 8px; }
+.checks label { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; align-items: start; padding-block: 10px; border-bottom: 1px solid var(--line); cursor: pointer; }
+.checks input { width: 18px; height: 18px; margin: 3px 0 0; accent-color: var(--gold); }
+.checks input:checked + span { color: var(--mute); text-decoration: line-through; text-decoration-color: var(--gold-deep); }
+.kit-next { margin-top: 24px; border-top: 1px solid var(--line); }

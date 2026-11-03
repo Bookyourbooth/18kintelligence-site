@@ -39,13 +39,66 @@ export const site = {
   portrait: "",
   socials: [{ label: "Instagram", href: "https://instagram.com/18kintelligence" }] as { label: string; href: string }[],
 
-  /** What the free Starter Kit email delivers. Keep in step with KIT_URL. */
-  kit: [
-    { item: "My filmmaking gear list", format: "PDF" },
-    { item: "Editing presets & LUTs", format: "PACK" },
-    { item: "The AI tools I build with", format: "GUIDE" },
-    { item: "First-website checklist", format: "PDF" },
-  ],
+  /**
+   * The free Creator-Builder Starter Kit, served at /kit (link it with KIT_URL).
+   * A part only appears on the kit page, the hero card and the welcome email
+   * once it has content, so the site never promises a part that isn't there.
+   */
+  kitParts: {
+    checklist: [
+      {
+        stage: "Before you build",
+        items: [
+          "Buy a domain you'd happily say out loud, at a registrar where you can edit the DNS yourself.",
+          "Write one sentence: who the site is for and what they should do next.",
+          "Pick one main action: book a call, buy, or join your email list. Everything on the page points at it.",
+        ],
+      },
+      {
+        stage: "Build",
+        items: [
+          "Start with one page: headline, what you do, proof, the action, then a short FAQ.",
+          "Keep the headline to about six words. Put the detail in the line underneath.",
+          "Use real photos of you and your work. Stock photos make you look like everyone else.",
+          "Never invent numbers, logos or testimonials. Leave the section out until you have real ones.",
+          "Set up an email on your own domain that forwards to the inbox you already check.",
+          "Design for your phone first. Most visitors will see it there.",
+        ],
+      },
+      {
+        stage: "Launch",
+        items: [
+          "Connect the domain and check the padlock (HTTPS) shows.",
+          "Fill in every form and click every button yourself, using a real email address.",
+          "Run payments in test mode first, then switch to live keys and make one real purchase.",
+          "Add a privacy page if you collect emails or take payments.",
+          "Add the site to Google Search Console so you can see how people find it.",
+        ],
+      },
+      {
+        stage: "After launch",
+        items: ["Read your enquiries every week.", "Change one thing a month, and note what happened."],
+      },
+    ],
+    /** Confirm these are the tools you use before this ships. */
+    aiTools: [
+      { name: "Claude Code", use: "Builds and edits my websites and apps from plain-English instructions, including this one." },
+      { name: "Higgsfield", use: "AI images and video for ads, b-roll and concept frames." },
+      { name: "ElevenLabs", use: "AI voiceover when a video needs narration." },
+    ],
+    /** The stack this site runs on, listed under the AI tools. */
+    stack: [
+      { name: "Next.js", use: "The website framework" },
+      { name: "Hostinger", use: "Hosting and domain email" },
+      { name: "Resend", use: "Emails and the mailing list" },
+      { name: "Stripe", use: "Payments" },
+      { name: "Cal.com", use: "Paid call bookings" },
+    ],
+    /** e.g. { name: "Sony FX3", use: "Main camera" } */
+    gear: [] as { name: string; use: string }[],
+    /** A file in /public, e.g. "/kit/18k-presets.zip". */
+    presetsFile: "",
+  },
 
   /** e.g. { value: "120k", label: "followers across platforms" } */
   stats: [] as { value: string; label: string }[],
@@ -112,6 +165,17 @@ export const site = {
     },
   ] as Product[],
 };
+
+/** The kit's parts that have content, in the order they're listed everywhere. */
+export function kitItems(): { id: string; item: string; format: string }[] {
+  const k = site.kitParts;
+  return [
+    k.gear.length > 0 && { id: "gear", item: "My filmmaking gear list", format: "LIST" },
+    k.presetsFile && { id: "presets", item: "Editing presets & LUTs", format: "PACK" },
+    k.aiTools.length > 0 && { id: "ai-tools", item: "The AI tools I build with", format: "GUIDE" },
+    k.checklist.length > 0 && { id: "checklist", item: "First-website checklist", format: "CHECKLIST" },
+  ].filter((x): x is { id: string; item: string; format: string } => Boolean(x));
+}
 
 export function formatPrice(minor: number): string {
   return new Intl.NumberFormat("en-US", {
