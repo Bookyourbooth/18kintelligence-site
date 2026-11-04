@@ -35,7 +35,7 @@ export const site = {
   /** Shown in the footer and privacy page when set. */
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "",
   instagram: "https://instagram.com/18kintelligence",
-  /** Path to a portrait in /public, e.g. "/portrait.jpg". Shown in the About section when set. */
+  /** Path to a portrait in /public, e.g. "/portrait.jpg". Shown as the "Now" chapter of the journey when set. */
   portrait: "",
   socials: [{ label: "Instagram", href: "https://instagram.com/18kintelligence" }] as { label: string; href: string }[],
 
@@ -205,3 +205,115 @@ export function formatPrice(minor: number): string {
 export function productBySlug(slug: string): Product | undefined {
   return site.products.find((p) => p.slug === slug);
 }
+
+export type JourneyStep = {
+  /** Shown as the chapter's date, and as the big type when it has no media. */
+  when: string;
+  year: string;
+  title: string;
+  body: string[];
+  /** Optional: a looping clip or photo. Landscape screen recordings use fit "contain". */
+  media?: { kind: "video" | "image"; src: string; poster?: string; alt: string; caption: string; fit?: "contain" };
+  /** What this chapter turned into on 18K, linked to that part of the page. */
+  became?: { label: string; href: string };
+  links?: { label: string; href: string }[];
+};
+
+/**
+ * The About section: Kwame's journey, told by Kwame (Nov 2026).
+ * Chapters without media show their year until a photo or clip is added.
+ * Wanted: Book Your Booth app screenshots (2021, 2023), a music video or shoot from 2024, and a portrait for "Now".
+ */
+export const journey: JourneyStep[] = [
+  {
+    when: "2021",
+    year: "2021",
+    title: "The idea: Book Your Booth",
+    body: [
+      "Book Your Booth started as an idea: book a studio by the hour, as easily as booking anything else. My co-founder and I put our own money in and bootstrapped it.",
+      "We hired a developer in India to build the app. It was a struggle from the start, with delay after delay.",
+    ],
+    became: { label: "Build With AI", href: "#next" },
+  },
+  {
+    when: "June 2023",
+    year: "2023",
+    title: "Launch day, and everything that broke",
+    body: [
+      "Two years after the idea, we launched. There were bugs and problems everywhere, and every fix cost money we didn't have.",
+      "So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
+    ],
+    became: { label: "Build With AI", href: "#next" },
+  },
+  {
+    when: "2023 to 2024",
+    year: "2024",
+    title: "Learning to film, because I had to",
+    body: [
+      "Nobody was going to market Book Your Booth for me, so I learned to do it myself, starting on my iPhone. I hired videographers and photographers, but they couldn't put what was in my head on screen.",
+      "At the start of 2024 I bought a camera and kit and doubled down on marketing. The studios I worked with started asking me to market their brands too. I didn't see it then, but that was a business.",
+    ],
+    media: { kind: "video", src: "/work/bybhub-crash.mp4", poster: "/work/bybhub-crash.jpg", alt: "", caption: "An ad I made for Studio Crash, bookable on the app" },
+    became: { label: "Film It Yourself", href: "#next" },
+  },
+  {
+    when: "July 2024",
+    year: "2024",
+    title: "Filming for other people",
+    body: [
+      "I started shooting for others: music videos, photography for brands and models, friends and family.",
+      "It sharpened my skills and brought in extra cash, and every bit of it went back into Book Your Booth.",
+    ],
+    became: { label: "1:1 calls", href: "#consult" },
+  },
+  {
+    when: "April 2025",
+    year: "2025",
+    title: "Putting it on hold",
+    body: [
+      "Customers loved it and users were growing. But the technical problems never stopped, and I couldn't find product-market fit while fighting the app. My runway ran out.",
+      "In April 2025 I put Book Your Booth on hold to work out what came next. Over the years I'd put in more than £70,000.",
+    ],
+    media: { kind: "video", src: "/work/bybhub-cypher.mp4", poster: "/work/bybhub-cypher.jpg", alt: "", caption: "Beyond The Booth, our live cypher night" },
+  },
+  {
+    when: "February 2026",
+    year: "2026",
+    title: "Starting again, in public",
+    body: [
+      "I started posting with no fixed plan, trying out what I cared about: the gym, business, marketing and tech. My first video was the story of losing that £70k.",
+      "4angles was born around the same time and started paying. That gave me room to step back and properly learn AI.",
+    ],
+    media: { kind: "video", src: "/work/story.mp4", poster: "/work/story.jpg", alt: "", caption: "My first post: losing £70k and starting again" },
+    became: { label: "Content OS", href: "#next" },
+    links: [{ label: "4angles", href: "https://4anglesagency.com" }],
+  },
+  {
+    when: "April to November 2026",
+    year: "2026",
+    title: "Rebuilding it with AI",
+    body: [
+      "In April 2026 I went back to Book Your Booth and worked out how AI could cut my costs and let me build faster. In September, development on bybhub began.",
+      "The first version took two years to launch. Within a few months, bybhub was fully built, bigger and better.",
+    ],
+    media: { kind: "video", src: "/work/bybhub-site.mp4", poster: "/work/bybhub-site-poster.jpg", alt: "", caption: "bybhub.io, built with AI", fit: "contain" },
+    became: { label: "Build With AI", href: "#next" },
+    links: [{ label: "See bybhub", href: "https://bybhub.io" }],
+  },
+  {
+    when: "Now",
+    year: "18K",
+    title: "18K Intelligence",
+    body: [
+      "Somewhere between January 2026 and now, it all connected. Everything from the last five years, the slow build, the bugs, the camera, the money I lost and the rebuild, is what I teach here.",
+      "18K Intelligence is that whole journey, laid out so you can learn it without the expensive parts.",
+    ],
+    media: site.portrait
+      ? { kind: "image", src: site.portrait, alt: "Kwame, 18K Intelligence", caption: "Me, now" }
+      : { kind: "video", src: "/work/process.mp4", poster: "/work/process.jpg", alt: "", caption: "How I work now" },
+    links: [
+      { label: "Get the free kit", href: "#join" },
+      { label: "Book a 1:1 call", href: "#consult" },
+    ],
+  },
+];
