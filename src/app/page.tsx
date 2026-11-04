@@ -2,14 +2,17 @@ import type { CSSProperties } from "react";
 import { BookCall } from "@/components/book-call";
 import { BuyButton } from "@/components/buy-button";
 import { CaptureForm } from "@/components/capture-form";
+import { HeroMedia } from "@/components/hero-media";
 import { CookieSettingsButton } from "@/components/cookie-consent";
 import { Reels } from "@/components/reels";
 import { Journey } from "@/components/journey";
 import { formatPrice, journey, kitItems, site } from "@/content";
 
+/** "a, b and c" */
+const listOf = (xs: string[]) => (xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs.at(-1)}`);
+
 export default function Home() {
   const calUrl = process.env.CAL_CONSULT_URL ?? "";
-  const kitReady = Boolean(process.env.KIT_URL);
   const live = site.products.filter((p) => p.live);
   const coming = site.products.filter((p) => !p.live);
 
@@ -38,14 +41,14 @@ export default function Home() {
             <div className="hero-copy">
               <h1>Build it and film it yourself</h1>
               <p className="lede">
-                I&apos;m Kwame, a filmmaker and the founder of 4angles. Each week I show you how I build websites and apps,
-                make films and market brands.
+                I&apos;m Kwame, a filmmaker and the founder of 4angles. Each week I show you how I build software with AI, film
+                it and market it.
               </p>
               <CaptureForm
                 formId="join"
                 id="hero-email"
                 source="kit"
-                label="Start with the free Creator-Builder Starter Kit"
+                label={`Get the free Starter Kit: ${listOf(kitItems().map((k) => k.phrase))}.`}
                 button="Send me the kit"
                 note={
                   <>
@@ -58,37 +61,7 @@ export default function Home() {
               </a>
             </div>
 
-            <div className="kit" aria-label="Preview of the free Creator-Builder Starter Kit">
-              <div className="sheet s3" aria-hidden="true"></div>
-              <div className="sheet s2" aria-hidden="true"></div>
-              <div className="sheet s1">
-                <div className="kit-top">
-                  <span className="hallmark">
-                    <span>FREE</span>
-                  </span>
-                  <span className="label">18kintelligence</span>
-                </div>
-                <div className="kit-title">
-                  Creator-Builder
-                  <br />
-                  <span className="gold">Starter Kit</span>
-                </div>
-                <div>
-                  <p className="kit-in">Inside</p>
-                  <ul className="kit-list">
-                    {kitItems().map((k) => (
-                      <li key={k.item}>
-                        <span>{k.item}</span>
-                        <span>{k.format}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="kit-foot">
-                  <span className="label">{kitReady ? "Instant access" : "Sent by email"}</span>
-                </div>
-              </div>
-            </div>
+            <HeroMedia />
           </div>
         </div>
 
