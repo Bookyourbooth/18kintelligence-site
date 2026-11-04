@@ -249,6 +249,13 @@ export default function Home() {
                     <span className="kind">{[p.kind, ...p.meta].join(", ")}</span>
                   </div>
                   <p>{p.summary}</p>
+                  {p.flagship && (
+                    <ul className="ticks">
+                      {p.points.map((pt) => (
+                        <li key={pt}>{pt}</li>
+                      ))}
+                    </ul>
+                  )}
                 </li>
               ))}
               <li id="community">

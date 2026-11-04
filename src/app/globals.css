@@ -178,10 +178,11 @@ section { padding-block: clamp(72px, 9vw, 120px); }
   background: radial-gradient(90% 120% at 0% 0%, #251F15 0%, var(--bg) 60%); }
 .upcoming-head { display: grid; gap: 20px; }
 .upcoming-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-.upcoming-list li { display: grid; gap: 6px; padding-block: 18px; border-bottom: 1px solid var(--line); scroll-margin-top: 96px; }
-.upcoming-list li > div { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
+.upcoming-list > li { display: grid; gap: 6px; padding-block: 18px; border-bottom: 1px solid var(--line); scroll-margin-top: 96px; }
+.upcoming-list > li > div { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; }
 .upcoming-list b { font: 700 1.3rem/1.1 var(--display); letter-spacing: -0.02em; display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .upcoming-list p { color: var(--mute); font-size: 0.95rem; }
+.upcoming-list .ticks { margin-top: 8px; color: var(--ink); font-size: 0.92rem; }
 .flag { font: 500 0.6875rem/1 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold-deep); border-radius: 4px; padding: 4px 6px; }
 @media (max-width: 880px) { .upcoming { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
 
