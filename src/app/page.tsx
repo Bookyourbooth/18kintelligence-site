@@ -2,6 +2,7 @@ import type { CSSProperties } from "react";
 import { BookCall } from "@/components/book-call";
 import { BuyButton } from "@/components/buy-button";
 import { CaptureForm } from "@/components/capture-form";
+import { CookieSettingsButton } from "@/components/cookie-consent";
 import { Reels } from "@/components/reels";
 import { formatPrice, kitItems, site } from "@/content";
 
@@ -347,6 +348,7 @@ export default function Home() {
             </div>
             <span>
               © {new Date().getFullYear()} 18K Intelligence · <a href="/privacy">Privacy</a>
+              <CookieSettingsButton before=" · ">Cookie settings</CookieSettingsButton>
             </span>
           </div>
         </div>

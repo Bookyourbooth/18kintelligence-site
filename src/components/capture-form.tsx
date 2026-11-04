@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent, type ReactNode } from "react";
+import { trackSignUp } from "@/lib/meta-pixel";
 
 const DONE = {
   kit: "You're in. Check your inbox for the Starter Kit.",
@@ -47,6 +48,8 @@ export function CaptureForm({ id, source, label, button, note, formId }: Props) 
         setMsg(data.error ?? "Something went wrong. Please try again.");
         return;
       }
+      // The server quietly turns away anything that filled in the hidden field, so that isn't a lead.
+      if (!d.get("website")) trackSignUp(source);
       setState("done");
       setMsg(DONE[source]);
     } catch {
