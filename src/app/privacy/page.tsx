@@ -45,9 +45,11 @@ export default function Privacy() {
               Advertising cookies only run if you say yes when this site asks. They come from Meta, which runs Facebook
               and Instagram, and show me which of my ads bring people here. Meta sets its own cookies (_fbp, and _fbc if
               you arrived from one of my ads), and your browser tells Meta the address of each page you visit here,
-              apart from the page you see after paying, and when you sign up with your email. Meta also sees your IP
-              address and browser, and may link all this to a Facebook or Instagram account. I don&apos;t give it your
-              name, email address, phone number or what you buy.
+              apart from the page you see after paying, and when you sign up with your email. Meta&apos;s code also
+              reads those pages, such as their titles and prices, and records the buttons and links you press and the
+              words on them, so it sees when you press to buy. Meta also sees your IP address and browser, and may link
+              all this to a Facebook or Instagram account. I don&apos;t give it your name, email address or phone
+              number, and it isn&apos;t told whether you then pay.
             </p>
             <p>
               If you decline, none of this loads and nothing about your visit goes to Meta. One small cookie of mine
