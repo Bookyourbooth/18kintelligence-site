@@ -100,10 +100,23 @@ export const site = {
     presetsFile: "",
   },
 
-  /** e.g. { value: "120k", label: "followers across platforms" } */
-  stats: [] as { value: string; label: string }[],
-  /** e.g. { title: "I built a booking app in a weekend", href: "https://instagram.com/reel/..." } */
-  videos: [] as { title: string; href: string }[],
+  /**
+   * Instagram Insights for the reach reel, each backed by a screenshot in /public/proof.
+   * Reported by Kwame; the same numbers appear on 4anglesagency.com.
+   */
+  stats: [
+    { value: "280,776", label: "views on one 7‑second reel", period: "Nov 2026", proof: "/proof/reel-summary.jpg" },
+    { value: "101,678", label: "of those in its first week", period: "June 2026", proof: "/proof/reel-views.jpg" },
+    { value: "396", label: "new followers from that reel", period: "Nov 2026", proof: "/proof/reel-summary.jpg" },
+    { value: "3,349", label: "saves and 3,110 reposts", period: "Nov 2026", proof: "/proof/reel-engagement.jpg" },
+  ] as { value: string; label: string; period: string; proof: string }[],
+  /** Looping clips of real posts. Each tile opens the post on Instagram. */
+  videos: [
+    { title: "A 7‑second reel that reached the most people", tag: "Reach", src: "/work/reach.mp4", poster: "/work/reach.jpg", href: "https://www.instagram.com/reel/DZ5alo8M8sv/" },
+    { title: "Losing £70k and starting again", tag: "Story", src: "/work/story.mp4", poster: "/work/story.jpg", href: "https://www.instagram.com/reel/DVLc9KQDDKr/" },
+    { title: "Five mistakes I made building bybhub", tag: "Lessons", src: "/work/mistakes.mp4", poster: "/work/mistakes.jpg", href: "https://www.instagram.com/reel/DXMA3zWjNEL/" },
+    { title: "My process in five steps, on a real client job", tag: "Tutorial", src: "/work/process.mp4", poster: "/work/process.jpg", href: "https://www.instagram.com/reel/DavWhHGMfwq/" },
+  ] as { title: string; tag: string; src: string; poster: string; href: string }[],
   testimonials: [] as { quote: string; name: string; role: string }[],
 
   consult: {

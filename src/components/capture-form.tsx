@@ -7,6 +7,7 @@ const DONE = {
   courses: "You're on the list. I'll email you when a course opens.",
   newsletter: "You're in. Check your inbox for a welcome email.",
   waitlist: "You're on the waitlist. We'll email you when doors open.",
+  early: "You're on the list. You'll hear first when a course or the Club opens.",
 } as const;
 
 type Props = {

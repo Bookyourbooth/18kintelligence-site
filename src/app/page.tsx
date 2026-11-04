@@ -2,13 +2,14 @@ import type { CSSProperties } from "react";
 import { BookCall } from "@/components/book-call";
 import { BuyButton } from "@/components/buy-button";
 import { CaptureForm } from "@/components/capture-form";
+import { Reels } from "@/components/reels";
 import { formatPrice, kitItems, site } from "@/content";
 
 export default function Home() {
   const calUrl = process.env.CAL_CONSULT_URL ?? "";
   const kitReady = Boolean(process.env.KIT_URL);
-  const anyLive = site.products.some((p) => p.live);
-  const anyComing = site.products.some((p) => !p.live);
+  const live = site.products.filter((p) => p.live);
+  const coming = site.products.filter((p) => !p.live);
 
   return (
     <>
@@ -18,10 +19,10 @@ export default function Home() {
             <b>18k</b>intelligence
           </a>
           <nav className="nav-links" aria-label="Main">
+            {site.videos.length > 0 && <a href="#work">Work</a>}
             <a href="#consult">1:1 calls</a>
-            <a href="#products">Courses</a>
+            <a href={live.length > 0 ? "#products" : "#next"}>Courses</a>
             <a href="#about">About</a>
-            <a href="#community">Club</a>
             <a className="btn au" href="#join">
               Get the free kit
             </a>
@@ -61,8 +62,7 @@ export default function Home() {
               <div className="sheet s1">
                 <div className="kit-top">
                   <span className="hallmark">
-                    <span>750</span>
-                    <span>FREE KIT</span>
+                    <span>FREE</span>
                   </span>
                   <span className="label">18kintelligence</span>
                 </div>
@@ -71,14 +71,17 @@ export default function Home() {
                   <br />
                   <span className="gold">Starter Kit</span>
                 </div>
-                <ul className="kit-list">
-                  {kitItems().map((k) => (
-                    <li key={k.item}>
-                      <span>{k.item}</span>
-                      <span>{k.format}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div>
+                  <p className="kit-in">Inside</p>
+                  <ul className="kit-list">
+                    {kitItems().map((k) => (
+                      <li key={k.item}>
+                        <span>{k.item}</span>
+                        <span>{k.format}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
                 <div className="kit-foot">
                   <span className="label">{kitReady ? "Instant access" : "Sent by email"}</span>
                 </div>
@@ -87,24 +90,45 @@ export default function Home() {
           </div>
         </div>
 
-        {site.stats.length > 0 && (
-          <div className="proof gut">
-            <div className="wrap proof-in" style={{ "--cols": site.stats.length + 1 } as CSSProperties}>
-              <div>
-                <b>@18kintelligence</b>
-                <span>on Instagram</span>
+        {site.videos.length > 0 && (
+          <section id="work" className="gut" aria-labelledby="work-h">
+            <div className="wrap">
+              <div className="sec-head">
+                <h2 id="work-h">Filmed, edited and posted by me</h2>
+                <p className="lede">
+                  These are real posts from @18kintelligence. The same workflow is what I teach on the calls and in the kit.
+                </p>
               </div>
-              {site.stats.map((s) => (
-                <div key={s.label}>
-                  <b>{s.value}</b>
-                  <span>{s.label}</span>
-                </div>
-              ))}
+              <Reels videos={site.videos} />
+              {site.stats.length > 0 && (
+                <>
+                  <dl className="stats" style={{ "--cols": site.stats.length } as CSSProperties}>
+                    {site.stats.map((s) => (
+                      <div key={s.value}>
+                        <dt>{s.label}</dt>
+                        <dd className="stat-v">{s.value}</dd>
+                        <dd className="stat-proof">
+                          <a href={s.proof} target="_blank" rel="noopener noreferrer">
+                            See screenshot<span className="sr-only">: {s.value} {s.label}</span>
+                          </a>
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                  <p className="stats-note">From Instagram Insights for the first reel above, checked in June and November 2026.</p>
+                </>
+              )}
+              <div className="reels-foot">
+                <span>New videos every week.</span>
+                <a className="btn" href={site.instagram} target="_blank" rel="noopener noreferrer">
+                  Follow @18kintelligence
+                </a>
+              </div>
             </div>
-          </div>
+          </section>
         )}
 
-        <section id="consult" className="gut" aria-labelledby="con-h">
+        <section id="consult" className="gut" aria-labelledby="con-h" style={site.videos.length > 0 ? { paddingTop: 0 } : undefined}>
           <div className="wrap consult">
             <div className="consult-copy">
               <h2 id="con-h">Get my eyes on your business</h2>
@@ -136,88 +160,46 @@ export default function Home() {
           </div>
         </section>
 
-        {site.videos.length > 0 && (
-          <section className="gut" aria-labelledby="ch-h" style={{ paddingTop: 0 }}>
+        {live.length > 0 && (
+          <section id="products" className="gut" aria-labelledby="prod-h" style={{ paddingTop: 0 }}>
             <div className="wrap">
               <div className="sec-head">
-                <h2 id="ch-h">What I&apos;m sharing this week</h2>
+                <h2 id="prod-h">Learn the systems I use</h2>
+                <p className="lede">Self-paced and practical. Buy once and keep lifetime access, including future updates.</p>
               </div>
-              <div className="reels">
-                {site.videos.slice(0, 4).map((v) => (
-                  <a className="reel" key={v.href} href={v.href} target="_blank" rel="noopener noreferrer">
-                    <div className="reel-meta">
-                      <span>REEL</span>
+              <div className="products">
+                {live.map((p) => (
+                  <article className="product" key={p.slug}>
+                    <div className="cover">
+                      {p.flagship && (
+                        <span className="hallmark">
+                          <span>750</span>
+                          <span>FLAGSHIP</span>
+                        </span>
+                      )}
+                      <b>
+                        {p.cover[0]} <em>{p.cover[1]}</em>
+                      </b>
+                      <span className="kind">{[p.kind, ...p.meta].join(", ")}</span>
                     </div>
-                    <span className="play" aria-hidden="true">
-                      <svg viewBox="0 0 10 12">
-                        <path d="M0 0l10 6-10 6z"></path>
-                      </svg>
-                    </span>
-                    <h3>{v.title}</h3>
-                  </a>
+                    <div className="product-body">
+                      <p>{p.summary}</p>
+                      <ul className="ticks">
+                        {p.points.map((pt) => (
+                          <li key={pt}>{pt}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="price-row">
+                      <span className="price">{formatPrice(p.price)}</span>
+                      <BuyButton slug={p.slug} />
+                    </div>
+                  </article>
                 ))}
-              </div>
-              <div className="reels-foot">
-                <span>New videos every week.</span>
-                <a className="btn" href={site.instagram} target="_blank" rel="noopener noreferrer">
-                  Follow @18kintelligence
-                </a>
               </div>
             </div>
           </section>
         )}
-
-        <section id="products" className="gut" aria-labelledby="prod-h" style={{ paddingTop: 0 }}>
-          <div className="wrap">
-            <div className="sec-head">
-              <h2 id="prod-h">{anyLive ? "Learn the systems I use" : "Courses on the way"}</h2>
-              <p className="lede">Self-paced and practical. Buy once and keep lifetime access, including future updates.</p>
-            </div>
-            <div className="products">
-              {site.products.map((p) => (
-                <article className="product" key={p.slug}>
-                  <div className="cover">
-                    {p.flagship && (
-                      <span className="hallmark">
-                        <span>750</span>
-                        <span>FLAGSHIP</span>
-                      </span>
-                    )}
-                    <b>
-                      {p.cover[0]} <em>{p.cover[1]}</em>
-                    </b>
-                    <span className="kind">
-                      {[p.kind, ...p.meta].join(", ")}
-                    </span>
-                  </div>
-                  <div className="product-body">
-                    <p>{p.summary}</p>
-                    <ul className="ticks">
-                      {p.points.map((pt) => (
-                        <li key={pt}>{pt}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="price-row">
-                    {p.live ? (
-                      <>
-                        <span className="price">{formatPrice(p.price)}</span>
-                        <BuyButton slug={p.slug} />
-                      </>
-                    ) : (
-                      <span className="soon">Coming soon</span>
-                    )}
-                  </div>
-                </article>
-              ))}
-            </div>
-            {anyComing && (
-              <div className="notify">
-                <CaptureForm id="notify-email" source="courses" label="Hear first when a course opens" button="Tell me" />
-              </div>
-            )}
-          </div>
-        </section>
 
         {site.testimonials.length > 0 && (
           <section className="gut" aria-labelledby="q-h" style={{ paddingTop: 0 }}>
@@ -245,6 +227,41 @@ export default function Home() {
           </section>
         )}
 
+        {/* Everything not open yet, with one list to hear first. */}
+        <section id="next" className="gut" aria-labelledby="next-h" style={{ paddingTop: 0 }}>
+          <div className="wrap upcoming">
+            <div className="upcoming-head">
+              <h2 id="next-h">On the way</h2>
+              <p className="lede">
+                {coming.length > 0 ? "Self-paced courses and a members' club. " : "A members' club. "}Join the list to hear first, and
+                founding members keep their price for life.
+              </p>
+              <CaptureForm id="early-email" source="early" label="Get first access" button="Join the list" />
+            </div>
+            <ul className="upcoming-list">
+              {coming.map((p) => (
+                <li key={p.slug}>
+                  <div>
+                    <b>
+                      {p.name}
+                      {p.flagship && <span className="flag">Flagship</span>}
+                    </b>
+                    <span className="kind">{[p.kind, ...p.meta].join(", ")}</span>
+                  </div>
+                  <p>{p.summary}</p>
+                </li>
+              ))}
+              <li id="community">
+                <div>
+                  <b>The 18K Club</b>
+                  <span className="kind">Community</span>
+                </div>
+                <p>Monthly live build sessions, feedback on your content, sites and apps, and early access to every course.</p>
+              </li>
+            </ul>
+          </div>
+        </section>
+
         <section id="about" className="gut" aria-labelledby="ab-h" style={{ paddingTop: 0 }}>
           <div className={`wrap about${site.portrait ? " has-photo" : ""}`}>
             {site.portrait && (
@@ -270,24 +287,6 @@ export default function Home() {
                 Follow @18kintelligence
               </a>
             </div>
-          </div>
-        </section>
-
-        <section id="community" className="gut" aria-labelledby="com-h" style={{ paddingTop: 0 }}>
-          <div className="wrap community">
-            <div style={{ display: "grid", gap: "18px" }}>
-              <h2 id="com-h">The 18K Club</h2>
-              <p className="lede">
-                A private space for creators and founders who build. Doors open soon, and founding members keep their price for life.
-              </p>
-              <ul className="perks">
-                <li>Monthly live build sessions and Q&amp;As</li>
-                <li>Feedback on your content, sites and apps</li>
-                <li>Early access to every new course</li>
-                <li>A network of people shipping real work</li>
-              </ul>
-            </div>
-            <CaptureForm id="wl-email" source="waitlist" label="Join the waitlist" button="Join" />
           </div>
         </section>
 
