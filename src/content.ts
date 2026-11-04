@@ -37,7 +37,10 @@ export const site = {
   instagram: "https://instagram.com/18kintelligence",
   /** Path to a portrait in /public, e.g. "/portrait.jpg". Shown as the "Now" chapter of the journey when set. */
   portrait: "",
-  socials: [{ label: "Instagram", href: "https://instagram.com/18kintelligence" }] as { label: string; href: string }[],
+  socials: [
+    { label: "Instagram", href: "https://instagram.com/18kintelligence" },
+    { label: "YouTube", href: "https://www.youtube.com/@18kintelligence" },
+  ] as { label: string; href: string }[],
 
   /**
    * The free Creator-Builder Starter Kit, served at /kit (link it with KIT_URL).
