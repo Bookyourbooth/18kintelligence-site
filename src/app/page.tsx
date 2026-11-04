@@ -4,7 +4,8 @@ import { BuyButton } from "@/components/buy-button";
 import { CaptureForm } from "@/components/capture-form";
 import { CookieSettingsButton } from "@/components/cookie-consent";
 import { Reels } from "@/components/reels";
-import { formatPrice, kitItems, site } from "@/content";
+import { Journey } from "@/components/journey";
+import { formatPrice, journey, kitItems, site } from "@/content";
 
 export default function Home() {
   const calUrl = process.env.CAL_CONSULT_URL ?? "";
@@ -264,30 +265,15 @@ export default function Home() {
         </section>
 
         <section id="about" className="gut" aria-labelledby="ab-h" style={{ paddingTop: 0 }}>
-          <div className={`wrap about${site.portrait ? " has-photo" : ""}`}>
-            {site.portrait && (
-              <div className="about-photo">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={site.portrait} alt="Kwame, 18K Intelligence" />
-              </div>
-            )}
-            <div className="about-copy">
+          <div className="wrap">
+            <div className="sec-head">
               <h2 id="ab-h">Hey, I&apos;m Kwame</h2>
-              <p>
-                I&apos;m a <strong>creative tech entrepreneur</strong>. I build businesses, websites and apps, and I&apos;m a{" "}
-                <strong>filmmaker</strong> who makes marketing for brands.
+              <p className="lede">
+                I&apos;m a creative tech entrepreneur and filmmaker. This is how I got here, and how each step became something I
+                teach.
               </p>
-              <p>
-                I founded{" "}
-                <a href="https://4anglesagency.com" target="_blank" rel="noopener noreferrer">
-                  4angles
-                </a>
-                , a marketing and AI studio, and I share what I learn along the way with you.
-              </p>
-              <a className="text-link" href={site.instagram} target="_blank" rel="noopener noreferrer">
-                Follow @18kintelligence
-              </a>
             </div>
+            <Journey steps={journey} />
           </div>
         </section>
 
