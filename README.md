@@ -52,3 +52,15 @@ child processes it would otherwise spawn. Don't remove it.
 
 Create a 60-minute paid event, install the Stripe app in Cal.com so it charges at booking, and put the
 event link in `CAL_CONSULT_URL`. Set `consult.priceLabel` in `content.ts` to show the price on the card.
+
+## Meta Pixel
+
+Set `NEXT_PUBLIC_META_PIXEL_ID` to the "18K Intelligence website" dataset ID from Events Manager, then
+redeploy: the value is read when the site is built. Until it's set there's no Pixel, no cookie question
+and no Meta wording in the privacy policy (`src/lib/meta-pixel.ts`).
+
+- Nothing loads until the visitor presses Accept. Decline, or "Cookie settings" in the footer, turns it off again.
+- Meta gets a PageView for each page and one Lead per visit when an email reaches the list, named after the form.
+- It never runs on `/thanks`, because Stripe's return address there carries the checkout session.
+- The privacy policy says Meta isn't given a name, email or phone number. That stays true only while
+  "Automatic advanced matching" is off for this dataset in Events Manager.
