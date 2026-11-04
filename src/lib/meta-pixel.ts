@@ -18,10 +18,10 @@
  *
  * WHAT META GETS. The address of each page, plus a Lead when an email reaches
  * the list. So a secret in an address has to be kept from it, by SILENT_PATHS.
- * autoConfig is switched off, because it would otherwise report button clicks
- * and page details nobody chose to send. The privacy policy says so, and also
- * says Meta is not given a name, email address or phone number, which stays
- * true only while "Automatic advanced matching" is off for this Pixel in
+ * Meta's own code also reads the page and the buttons pressed, a buy button
+ * included, which helps the ads: see readPages. The privacy policy says so,
+ * and also says Meta is not given a name, email address or phone number, which
+ * stays true only while "Automatic advanced matching" is off for this Pixel in
  * Events Manager. Change one, change the other.
  */
 
@@ -82,6 +82,7 @@ export const cookieSettingsOpen = () => settingsOpen;
 /** The "Cookie settings" link: consent has to be as easy to take back as to give. */
 export function openCookieSettings() {
   settingsOpen = true;
+  readPages();
   changed();
 }
 
@@ -135,6 +136,26 @@ declare global {
   }
 }
 
+let reading: boolean | null = null;
+
+/**
+ * Whether Meta's own code reads the page (its title, prices and the like) and
+ * the buttons pressed on it, with their words. On, because it helps the ads
+ * (chosen 4 Nov 2026), except:
+ * - on a silent page, should a visitor reach one after the Pixel has started,
+ *   because its address would go with every click;
+ * - while the cookie question is open, so pressing Decline isn't reported.
+ *
+ * Meta looks at this switch before every click and every event, so it is set
+ * again on each page.
+ */
+function readPages() {
+  const on = !settingsOpen && !isSilentPath(location.pathname);
+  if (!window.fbq || on === reading) return;
+  reading = on;
+  window.fbq("set", "autoConfig", on);
+}
+
 /** Meta's own stub: commands queue here until fbevents.js arrives to work through them. */
 function pixel(...command: unknown[]) {
   if (!window.fbq) {
@@ -152,16 +173,19 @@ function pixel(...command: unknown[]) {
     fbq.allowDuplicatePageViews = true;
     window.fbq = fbq;
     window._fbq = fbq;
-    fbq("set", "autoConfig", false, PIXEL_ID);
+    readPages();
     fbq("init", PIXEL_ID);
   }
+  readPages();
   window.fbq(...command);
 }
 
 let lastPage: string | null = null;
 
 export function pageView(path: string) {
-  if (cookieChoice() !== "accepted" || isSilentPath(path) || path === lastPage) return;
+  if (cookieChoice() !== "accepted") return;
+  readPages();
+  if (isSilentPath(path) || path === lastPage) return;
   lastPage = path;
   pixel("track", "PageView");
 }
