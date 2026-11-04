@@ -155,11 +155,14 @@ export const site = {
       kind: "Course",
       cover: ["Build With", "AI"],
       flagship: true,
-      summary: "Plan, build and launch websites and apps with AI tools, even if you've never coded.",
+      summary:
+        "Plan, build and launch software with AI: websites, apps, AI agents, automations and content pipelines. If you can describe it, you can build it, and I'll show you how step by step, even if you've never written code.",
       points: [
-        "Launch a website in a weekend",
-        "Build your first app with AI coding tools",
-        "Take payments and collect leads from day one",
+        "Turn any idea into a clear plan an AI can build from",
+        "Websites and apps, from the first screen to taking payments",
+        "AI agents and automations that take repetitive work off your plate",
+        "Content pipelines that turn one idea into posts for every platform",
+        "Launch it, get your first users and keep improving it",
       ],
       meta: [],
       price: 29700,
