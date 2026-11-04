@@ -29,9 +29,17 @@ ${kitUrl ? button(kitUrl, "Get the kit") : "<p>I'll send your download link in a
     body: () =>
       `<p>Hey,</p><p>You're on the waitlist for the 18K Club. You'll hear first when doors open, and founding members keep their price for life.</p><p>Kwame<br>18K Intelligence</p>`,
   },
+  early: {
+    subject: "You're on the list for 18K courses and the Club",
+    body: () =>
+      `<p>Hey,</p><p>You're on the list. You'll hear first when a course or the 18K Club opens, before anyone else, and founding members keep their price for life.</p><p>Reply any time and tell me what you most want to learn.</p><p>Kwame<br>18K Intelligence</p>`,
+  },
 } as const;
 
-/** Email-list signups from the hero (free kit), courses (coming soon), footer (newsletter) and community (waitlist) forms. */
+/**
+ * Email-list signups from the hero (free kit), "On the way" (early: courses and the Club) and footer (newsletter) forms.
+ * "courses" and "waitlist" are the older split forms, kept so a cached page still works.
+ */
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
   if (body.website) return Response.json({ ok: true }); // honeypot
@@ -64,8 +72,8 @@ export async function POST(request: Request) {
   if (source === "kit" && !process.env.KIT_URL && m.ownerTo) {
     await m.resend.emails.send({ from: m.from, to: m.ownerTo, subject: "Send the Starter Kit by hand", html: layout(`<p>${esc(email)} asked for the kit. KIT_URL isn't set, so they haven't got a download link yet.</p>`) });
   }
-  if (source === "waitlist" && m.ownerTo) {
-    await m.resend.emails.send({ from: m.from, to: m.ownerTo, subject: "New 18K Club waitlist signup", html: layout(`<p>${esc(email)} joined the waitlist.</p>`) });
+  if ((source === "waitlist" || source === "early") && m.ownerTo) {
+    await m.resend.emails.send({ from: m.from, to: m.ownerTo, subject: "New 18K early-access signup", html: layout(`<p>${esc(email)} joined the list for courses and the Club.</p>`) });
   }
   return Response.json({ ok: true });
 }
