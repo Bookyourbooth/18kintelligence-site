@@ -1,5 +1,7 @@
+import { after } from "next/server";
 import type Stripe from "stripe";
-import { formatPrice, productBySlug } from "@/content";
+import { formatPrice, productBySlug, site } from "@/content";
+import { postToMeta, purchaseEvent } from "@/lib/meta-server";
 import { accessUrl, button, esc, layout, mailer, saveContact, stripe } from "@/lib/server";
 
 /**
@@ -10,7 +12,10 @@ import { accessUrl, button, esc, layout, mailer, saveContact, stripe } from "@/l
  * needs the RAW body: parse it first and the signature no longer matches.
  *
  * Stripe retries on any non-2xx and can deliver the same event twice, so a
- * repeat only re-sends the same access email; nothing is counted.
+ * repeat only re-sends the same access email; Meta counts the sale once.
+ *
+ * Once delivered, the sale goes to Meta as a Purchase if the buyer said yes
+ * to advertising cookies before pressing to buy (lib/meta-server).
  */
 export async function POST(request: Request) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -72,5 +77,7 @@ ${link ? button(link, `Open ${product.name}`) : "<p>Your access link is on its w
       html: layout(`<p>${esc(email)} bought <b>${esc(product.name)}</b> for ${formatPrice(session.amount_total ?? product.price)}.</p>`),
     });
   }
+  const sale = await purchaseEvent(session, product, site.url);
+  if (sale) after(() => postToMeta([sale]));
   return Response.json({ received: true });
 }

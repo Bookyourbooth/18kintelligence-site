@@ -60,7 +60,19 @@ redeploy: the value is read when the site is built. Until it's set there's no Pi
 and no Meta wording in the privacy policy (`src/lib/meta-pixel.ts`).
 
 - Nothing loads until the visitor presses Accept. Decline, or "Cookie settings" in the footer, turns it off again.
-- Meta gets a PageView for each page and one Lead per visit when an email reaches the list, named after the form.
+  A yes given before 5 Nov 2026 (cookie value `accepted`) no longer counts, so those visitors are asked again.
+- Meta gets a PageView for each page, one Lead per visit when an email reaches the list, named after the form,
+  and an InitiateCheckout when someone presses Buy now. The Lead carries the email address, scrambled (SHA-256)
+  in the browser first (`src/lib/meta-match.ts`). "Automatic website matching" is on for this dataset in
+  Events Manager, so Meta's code takes it from the form the same way.
 - It never runs on `/thanks`, because Stripe's return address there carries the checkout session.
-- The privacy policy says Meta isn't given a name, email or phone number. That stays true only while
-  "Automatic advanced matching" is off for this dataset in Events Manager.
+- Each event is also sent from the server through Meta's Conversions API (`src/app/api/meta-events`), so it
+  still counts when a browser blocks Meta's script. A sale is sent from the server alone: `/api/checkout`
+  keeps an event id, Meta's cookies, IP and browser in the Checkout session's metadata for a buyer who said
+  yes, and the webhook sends a Purchase with the amount and the scrambled email, name and country once it's paid.
+- All of the server side needs `META_CONVERSIONS_API_TOKEN`: in Events Manager, open the dataset's Settings,
+  then "Generate access token" under Conversions API. It's a secret, so never in a `NEXT_PUBLIC_` variable.
+  Without it, nothing is sent from the server and nothing extra is kept in Stripe.
+- To check it end to end, open any page with `?meta_test=TEST12345`, using the code shown in Events Manager's
+  Test events tab: that visit's server copies show up there.
+- The privacy policy says all of this. Change one, change the other.

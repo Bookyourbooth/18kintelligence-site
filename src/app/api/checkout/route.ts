@@ -1,4 +1,5 @@
 import { CURRENCY, productBySlug, site } from "@/content";
+import { saleMetadata } from "@/lib/meta-server";
 import { accessUrl, stripe } from "@/lib/server";
 
 /**
@@ -7,6 +8,9 @@ import { accessUrl, stripe } from "@/lib/server";
  * Prices come from content.ts on the server, never from the browser, so a
  * visitor can't edit the amount they pay. A product only sells once it is
  * marked live and has an access link to deliver.
+ *
+ * For a buyer who said yes to advertising cookies, the checkout also keeps
+ * what the webhook needs to report the sale to Meta (lib/meta-server).
  */
 export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as Record<string, unknown>;
@@ -35,7 +39,7 @@ export async function POST(request: Request) {
           },
         },
       ],
-      metadata: { slug: product.slug },
+      metadata: { slug: product.slug, ...saleMetadata(request) },
       customer_creation: "always",
       allow_promotion_codes: true,
       success_url: `${base}/thanks?session_id={CHECKOUT_SESSION_ID}`,

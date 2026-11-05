@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { trackCheckout } from "@/lib/meta-pixel";
 
-/** Sends the buyer to Stripe Checkout for one product. */
-export function BuyButton({ slug }: { slug: string }) {
+/** Sends the buyer to Stripe Checkout for one product. `value` is the price in dollars, for Meta. */
+export function BuyButton({ slug, name, value, currency }: { slug: string; name: string; value: number; currency: string }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
   async function buy() {
+    trackCheckout({ slug, name, value, currency });
     setBusy(true);
     setError("");
     try {
