@@ -49,7 +49,7 @@ export function CaptureForm({ id, source, label, button, note, formId }: Props) 
         return;
       }
       // The server quietly turns away anything that filled in the hidden field, so that isn't a lead.
-      if (!d.get("website")) trackSignUp(source);
+      if (!d.get("website")) trackSignUp(source, { email });
       setState("done");
       setMsg(DONE[source]);
     } catch {

@@ -42,8 +42,10 @@ export function CookieConsent() {
         <section className="cookies" aria-labelledby="cookie-question">
           <h2 id="cookie-question">Can I use advertising cookies?</h2>
           <p>
-            Meta&apos;s cookies show me which of my ads bring people to 18K Intelligence. Say no and everything here
-            works the same.{" "}
+            Meta&apos;s cookies show me which of my ads bring people to 18K Intelligence, and help Meta show them to
+            people likely to want what I make. If you say yes, I also give Meta your email address, and your name if you
+            buy, scrambled into a code, so it can match you to a Facebook or Instagram account. Say no and everything
+            here works the same.{" "}
             {choice !== "ask" && <>You&apos;ve currently said {choice === "accepted" ? "yes" : "no"}. </>}
             <a href="/privacy#cookies">Privacy policy</a>
           </p>

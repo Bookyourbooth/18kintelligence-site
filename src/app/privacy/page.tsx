@@ -43,17 +43,27 @@ export default function Privacy() {
             <h2 id="cookies">Cookies</h2>
             <p>
               Advertising cookies only run if you say yes when this site asks. They come from Meta, which runs Facebook
-              and Instagram, and show me which of my ads bring people here. Meta sets its own cookies (_fbp, and _fbc if
-              you arrived from one of my ads), and your browser tells Meta the address of each page you visit here,
-              apart from the page you see after paying, and when you sign up with your email. Meta&apos;s code also
-              reads those pages, such as their titles and prices, and records the buttons and links you press and the
-              words on them, so it sees when you press to buy. Meta also sees your IP address and browser, and may link
-              all this to a Facebook or Instagram account. I don&apos;t give it your name, email address or phone
-              number, and it isn&apos;t told whether you then pay.
+              and Instagram, and show me which of my ads bring people here, and help Meta show them to people likely to
+              want what I make. Meta sets its own cookies (_fbp, and _fbc if you arrived from one of my ads), and your
+              browser tells Meta the address of each page you visit here, apart from the page you see after paying,
+              when you sign up with your email, and when you press to buy, with the product and its price. Meta&apos;s
+              code also reads those pages, such as their titles and prices, and records the buttons and links you press
+              and the words on them. Meta also sees your IP address and browser.
             </p>
             <p>
-              If you decline, none of this loads and nothing about your visit goes to Meta. One small cookie of mine
-              keeps your answer for six months. <CookieSettingsButton>Change your answer</CookieSettingsButton>
+              I also give Meta the email address you sign up with, and Meta&apos;s code may take it from the form too.
+              If you buy something, my server tells Meta about the sale once it is paid: the product, the amount, the
+              email address, name and country you gave Stripe, and your IP address and browser as they were when you
+              pressed to buy. Email addresses, names and countries are scrambled into a code before they are sent (a
+              SHA-256 hash), and Meta uses the codes to match your visit to a Facebook or Instagram account, so it can
+              count which ads worked and choose who sees them next. My server also sends Meta a copy of everything your
+              browser sends it, with your IP address and browser, so it still arrives if your browser blocks
+              Meta&apos;s code. Your card details never go to Meta.
+            </p>
+            <p>
+              If you decline, none of this loads, and nothing about your visit, or anything you buy, goes to Meta from
+              your browser or from my server. One small cookie of mine keeps your answer for six months.{" "}
+              <CookieSettingsButton>Change your answer</CookieSettingsButton>
             </p>
           </>
         )}

@@ -6,7 +6,7 @@ import { HeroMedia } from "@/components/hero-media";
 import { CookieSettingsButton } from "@/components/cookie-consent";
 import { Reels } from "@/components/reels";
 import { Journey } from "@/components/journey";
-import { formatPrice, journey, kitItems, site } from "@/content";
+import { CURRENCY, formatPrice, journey, kitItems, site } from "@/content";
 
 /** "a, b and c" */
 const listOf = (xs: string[]) => (xs.length < 2 ? xs.join("") : `${xs.slice(0, -1).join(", ")} and ${xs.at(-1)}`);
@@ -167,7 +167,7 @@ export default function Home() {
                     </div>
                     <div className="price-row">
                       <span className="price">{formatPrice(p.price)}</span>
-                      <BuyButton slug={p.slug} />
+                      <BuyButton slug={p.slug} name={p.name} value={p.price / 100} currency={CURRENCY} />
                     </div>
                   </article>
                 ))}
