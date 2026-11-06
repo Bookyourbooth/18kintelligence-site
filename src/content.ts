@@ -225,7 +225,7 @@ export type JourneyStep = {
 /**
  * The About section: Kwame's journey, told by Kwame (Nov 2026).
  * Chapters without media show their year until a photo or clip is added.
- * Wanted: Book Your Booth app screenshots (2021, 2023), a music video or shoot from 2024, and a portrait for "Now".
+ * Wanted: anything from 2021 (designs or the developer's first builds), a music video or shoot from 2024, and a portrait for "Now".
  */
 export const journey: JourneyStep[] = [
   {
@@ -246,6 +246,12 @@ export const journey: JourneyStep[] = [
       "Two years after the idea, we launched. There were bugs and problems everywhere, and every fix cost money we didn't have.",
       "So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
     ],
+    media: {
+      kind: "image",
+      src: "/journey/byb-2023.jpg",
+      alt: "Two screens from the Book Your Booth app in August 2023: search results showing the Young Soul studio from £30 an hour, and a booking for Grade 8 Studio on 1 August 2023.",
+      caption: "The first app, August 2023: find a studio, book the hour",
+    },
     became: { label: "Build With AI", href: "#next" },
   },
   {
