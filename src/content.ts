@@ -230,14 +230,24 @@ export type JourneyStep = {
  */
 export const journey: JourneyStep[] = [
   {
-    when: "2021",
+    when: "September 2021",
     year: "2021",
     title: "The idea: Book Your Booth",
     body: [
-      "Book Your Booth started as an idea: book a studio by the hour, as easily as booking anything else. My co-founder and I put our own money in and bootstrapped it.",
-      "We hired a developer in India to build the app. It was a struggle from the start, with delay after delay.",
+      "In 2020, during Covid, I went to a studio for the first time, Pirate Studios, with friends. I loved it. Booking one was hard and jarring, so in September 2021 I came up with the idea: the Airbnb for studios.",
+      "My co-founder and I put our own money in and bootstrapped it.",
     ],
     media: { kind: "video", src: "/journey/byb-2021.mp4", poster: "/journey/byb-2021.jpg", alt: "", caption: "Before launch: our first logos and app designs" },
+    became: { label: "Build With AI", href: "#next" },
+  },
+  {
+    when: "March 2022",
+    year: "2022",
+    title: "Paying a developer",
+    body: [
+      "In March 2022 I found a developer in India on LinkedIn and messaged him. That month I made the first payment, and development started.",
+      "It was a struggle from the start, with delay after delay. I paid him every month until the end of 2024.",
+    ],
     became: { label: "Build With AI", href: "#next" },
   },
   {
@@ -245,21 +255,20 @@ export const journey: JourneyStep[] = [
     year: "2023",
     title: "Launch day, and everything that broke",
     body: [
-      "Two years after the idea, we launched. There were bugs and problems everywhere, and every fix cost money we didn't have.",
-      "So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
+      "We planned to launch in March 2023. While we waited, I started filming on my iPhone in November 2022 to build our Instagram and a waiting list.",
+      "We launched in June 2023, three months late. There were bugs and problems everywhere, and every fix cost money we didn't have. So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
     ],
     media: { kind: "video", src: "/journey/byb-2023.mp4", poster: "/journey/byb-2023.jpg", alt: "", caption: "Our app: studios near you, on a map, by the hour" },
     became: { label: "Build With AI", href: "#next" },
   },
   {
-    when: "2023 to 2024",
+    when: "2023 to January 2024",
     year: "2024",
     title: "Learning to film, because I had to",
     body: [
-      "Nobody was going to market Book Your Booth for me, so I learned to do it myself, starting on my iPhone. I hired videographers and photographers, but they couldn't put what was in my head on screen.",
-      "At the start of 2024 I bought a camera and kit and doubled down on marketing. The studios I worked with started asking me to market their brands too. I didn't see it then, but that was a business.",
+      "Around launch, studios started asking me to make content for them. I said no, to stay focused on Book Your Booth. I didn't see it then, but that was a business.",
+      "From May to November 2023 I hired videographers and photographers, but they couldn't put what was in my head on screen. So in January 2024 I picked up a camera and taught myself, and spent that month in LA learning the craft.",
     ],
-    media: { kind: "video", src: "/work/bybhub-crash.mp4", poster: "/work/bybhub-crash.jpg", alt: "", caption: "An ad I made for Studio Crash, bookable on the app" },
     became: { label: "Film It Yourself", href: "#next" },
   },
   {
@@ -268,17 +277,28 @@ export const journey: JourneyStep[] = [
     title: "Filming for other people",
     body: [
       "I started shooting for others: music videos, photography for brands and models, friends and family.",
-      "It sharpened my skills and brought in extra cash, and every bit of it went back into Book Your Booth.",
+      "It sharpened my skills and brought in extra cash. That kept me afloat, and every bit of it went back into Book Your Booth.",
     ],
     became: { label: "1:1 calls", href: "#consult" },
+  },
+  {
+    when: "February 2025",
+    year: "2025",
+    title: "Studio Crash",
+    body: [
+      "In February 2025 I started Studio Crash, an event series. Artists came into studios on Book Your Booth and freestyled on camera, and the only way in was to book through the app.",
+      "It marketed the studios and brought bookings to the app. But I ran all of it myself: hosting, shooting, editing, and running the business.",
+    ],
+    media: { kind: "video", src: "/work/bybhub-crash.mp4", poster: "/work/bybhub-crash.jpg", alt: "", caption: "An ad I made for Studio Crash. The only way in was through the app." },
+    became: { label: "Film It Yourself", href: "#next" },
   },
   {
     when: "April 2025",
     year: "2025",
     title: "Putting it on hold",
     body: [
-      "Customers loved it and users were growing. But the technical problems never stopped, and I couldn't find product-market fit while fighting the app. My runway ran out.",
-      "In April 2025 I put Book Your Booth on hold to work out what came next. Over the years I'd put in more than £70,000.",
+      "Momentum was picking up, but by then it was too late. The technical problems never stopped, and I couldn't find product-market fit while fighting the app.",
+      "I was burned out and carrying all of it, and the money was running out. In April 2025 I put Book Your Booth on hold. Building the app had cost more than £70,000.",
     ],
     media: { kind: "video", src: "/work/bybhub-cypher.mp4", poster: "/work/bybhub-cypher.jpg", alt: "", caption: "Beyond The Booth, our live cypher night" },
   },
@@ -300,7 +320,7 @@ export const journey: JourneyStep[] = [
     title: "Rebuilding it with AI",
     body: [
       "In April 2026 I went back to Book Your Booth and worked out how AI could cut my costs and let me build faster. In September, development on bybhub began.",
-      "The first version took two years to launch. Within a few months, bybhub was fully built, bigger and better.",
+      "The first version took nearly three years of paying a developer. Within a few months, bybhub was fully built, bigger and better.",
     ],
     media: { kind: "video", src: "/work/bybhub-site.mp4", poster: "/work/bybhub-site-poster.jpg", alt: "", caption: "bybhub.io, built with AI", fit: "contain" },
     became: { label: "Build With AI", href: "#next" },

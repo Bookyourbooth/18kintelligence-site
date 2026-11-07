@@ -9,7 +9,7 @@ const body = Instrument_Sans({ subsets: ["latin"], weight: ["400", "500", "600"]
 const mono = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--f-mono", display: "swap" });
 
 const description =
-  "Learn to build websites and apps, make films and market your own business with Kwame, a filmmaker and founder. Free Starter Kit, a weekly email and 1:1 strategy calls.";
+  "Learn to build websites and apps, make films and market your own business with Kwame, a creative tech entrepreneur and founder. Free Starter Kit, a weekly email and 1:1 strategy calls.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),

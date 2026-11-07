@@ -41,7 +41,7 @@ export default function Home() {
             <div className="hero-copy">
               <h1>Build it and film it yourself</h1>
               <p className="lede">
-                I&apos;m Kwame, a filmmaker and the founder of 4angles. Each week I show you how I build software with AI, film
+                I&apos;m Kwame, a creative tech entrepreneur and the founder of 4angles, a marketing and software agency. Each week I show you how I build software with AI, film
                 it and market it.
               </p>
               <CaptureForm
@@ -249,7 +249,7 @@ export default function Home() {
             <div className="sec-head">
               <h2 id="ab-h">Hey, I&apos;m Kwame</h2>
               <p className="lede">
-                I&apos;m a creative tech entrepreneur and filmmaker. This is how I got here, and how each step became something I
+                I&apos;m a creative tech entrepreneur. This is how I got here, and how each step became something I
                 teach.
               </p>
             </div>
