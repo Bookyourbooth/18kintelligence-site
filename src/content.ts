@@ -296,8 +296,8 @@ export const journey: JourneyStep[] = [
     year: "2023",
     title: "Launch day, and everything that broke",
     body: [
-      "We planned to launch in March 2023. While we waited, I started filming on my iPhone in November 2022 to build our Instagram and a waiting list.",
-      "We launched in June 2023, three months late. There were bugs and problems everywhere, and every fix cost money we didn't have. So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
+      "We planned to launch the MVP in June 2022. While we waited, I started filming on my iPhone in November 2022 to build our Instagram and a waiting list.",
+      "We didn't launch until June 2023, 15 months after development started. There were bugs and problems everywhere, and every fix cost money we didn't have. So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
     ],
     media: { kind: "video", src: "/journey/ch03.mp4", poster: "/journey/ch03.jpg", alt: "", caption: "Filming studio visits for our Instagram from March 2023, and me at a Book Your Booth stand in August 2023", shots: [{ t: 0.0, caption: "Walking into a studio, March 2023" }, { t: 2.47, caption: "Another studio visit, May 2023" }, { t: 5.92, caption: "A studio's page on the app, inside that studio, July 2023" }, { t: 9.63, caption: "SM Studios, July 2023" }, { t: 11.08, caption: "VixMix Studios on the app, inside VixMix, August 2023" }, { t: 12.93, caption: "Heading into a session, September 2023" }, { t: 16.38, caption: "The Book Your Booth hoodie, October 2023" }, { t: 17.53, caption: "Me at a Book Your Booth stand, August 2023" }] },
   },
