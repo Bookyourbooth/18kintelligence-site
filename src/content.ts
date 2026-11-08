@@ -375,7 +375,7 @@ export const journey: JourneyStep[] = [
       "In April 2026 I went back to Book Your Booth and worked out how AI could cut my costs and let me build faster. In September, development on bybhub, the new Book Your Booth, began.",
       "The first version took nearly three years of paying a developer. Within a few months, bybhub was fully built, bigger and better.",
     ],
-    media: { kind: "video", src: "/journey/ch09.mp4", poster: "/journey/ch09.jpg", ratio: "16:10", alt: "", caption: "Working on my laptop in LA in January and February 2026, and bybhub.io, built with AI", shots: [{ t: 0.0, caption: "On a hill above LA at sunset, January 2026" }, { t: 2.47, caption: "Working on the car in LA, January 2026" }, { t: 4.92, caption: "On the laptop in bed in LA, February 2026" }, { t: 7.58, caption: "bybhub.io, built with AI" }] },
+    media: { kind: "video", src: "/journey/ch09.mp4", poster: "/journey/ch09.jpg", ratio: "16:10", alt: "", caption: "Working on my laptop in LA in January and February 2026", shots: [{ t: 0.0, caption: "On a hill above LA at sunset, January 2026" }, { t: 2.47, caption: "Working on the car in LA, January 2026" }, { t: 4.92, caption: "On the laptop in bed in LA, February 2026" }] },
     became: { label: "Build With AI", href: "#build-with-ai" },
     links: [{ label: "See bybhub", href: "https://bybhub.io" }],
   },
