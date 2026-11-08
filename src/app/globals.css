@@ -10,8 +10,10 @@
   --gold-hi: #EDCF85;
   --gold-deep: #9C7A2E;
   --on-gold: #17130A;
-  --display: var(--f-display), "Helvetica Neue", Arial, sans-serif;
-  --body: var(--f-body), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: var(--f-sans), "Helvetica Neue", Arial, sans-serif;
+  --body: var(--f-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* Brushed gold: a soft light-to-deep fall, like light on metal. Kept low-contrast on purpose, no shine effects. */
+  --gold-metal: linear-gradient(165deg, #EDD493 0%, #D8B562 42%, #C29A49 78%, #D3B068 100%);
   --nav: 68px;
   color-scheme: dark;
   padding-top: env(safe-area-inset-top, 0px);
@@ -28,12 +30,15 @@ img { max-width: 100%; display: block; }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 .gut { padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); }
 .wrap { max-width: 1160px; margin: 0 auto; }
-h1, h2, h3 { font-family: var(--display); line-height: 0.98; letter-spacing: -0.035em; text-wrap: balance; margin: 0; font-weight: 700; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.02; letter-spacing: -0.04em; text-wrap: balance; margin: 0; font-weight: 600; }
 h1 { font-size: clamp(2.8rem, 6.4vw, 5.4rem); font-variation-settings: "opsz" 96; }
 h2 { font-size: clamp(2.1rem, 4.6vw, 3.5rem); font-variation-settings: "opsz" 72; }
 h3 { font-size: 1.45rem; letter-spacing: -0.02em; }
 p { margin: 0; text-wrap: pretty; }
 .gold { color: var(--gold); }
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+  .gold, .wordmark b, .cover b em, .sc-type span { background: var(--gold-metal); -webkit-background-clip: text; background-clip: text; color: transparent; }
+}
 .label { font-weight: 500; font-size: 0.92rem; line-height: 1.3; color: var(--ink); }
 .text-link { color: var(--mute); text-decoration: underline; text-decoration-color: var(--gold-deep); text-decoration-thickness: 1px; justify-self: start; }
 .text-link:hover { color: var(--gold); text-decoration-color: var(--gold); }
@@ -41,8 +46,8 @@ p { margin: 0; text-wrap: pretty; }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; font: 600 1rem/1 var(--body); padding: 16px 24px; border-radius: 999px; border: 0; background: var(--raise-2); color: var(--ink); cursor: pointer; text-decoration: none; transition: transform .2s ease, border-color .2s ease, filter .2s ease; white-space: nowrap; }
 .btn:hover { background: #2A262E; transform: translateY(-1px); }
-.btn.au { background: var(--gold); color: var(--on-gold); transition: transform .2s ease, background-color .2s ease; }
-.btn.au:hover { background: var(--gold-hi); }
+.btn.au { background: var(--gold-metal); color: var(--on-gold); transition: transform .2s ease, filter .2s ease; }
+.btn.au:hover { filter: brightness(1.07); }
 .btn.au:active { transform: translateY(1px); }
 .btn[disabled] { opacity: 0.6; cursor: progress; transform: none; }
 
@@ -54,8 +59,8 @@ p { margin: 0; text-wrap: pretty; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--bg); }
 .nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--bg); }
 .nav-in { display: flex; justify-content: space-between; align-items: center; gap: 16px; height: var(--nav); }
-.wordmark { font: 800 1.45rem/1 var(--display); letter-spacing: -0.045em; text-decoration: none; }
-.wordmark b { color: var(--gold); font-weight: 800; }
+.wordmark { font: 700 1.45rem/1 var(--display); letter-spacing: -0.045em; text-decoration: none; }
+.wordmark b { color: var(--gold); font-weight: 700; }
 .nav-links { display: flex; gap: 26px; align-items: center; font-size: 0.94rem; }
 .nav-links a:not(.btn) { text-decoration: none; color: var(--mute); }
 .nav-links a:not(.btn):hover { color: var(--ink); }
@@ -129,14 +134,14 @@ section { padding-block: clamp(72px, 9vw, 120px); }
 .products { display: grid; gap: 12px; }
 .product { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr) auto; gap: 16px 40px; padding: 32px; background: var(--raise); border-radius: 12px; align-items: start; }
 .cover { display: grid; gap: 10px; justify-items: start; }
-.cover b { font: 800 clamp(1.8rem, 3.2vw, 2.5rem)/1 var(--display); letter-spacing: -0.04em; }
+.cover b { font: 700 clamp(1.8rem, 3.2vw, 2.5rem)/1 var(--display); letter-spacing: -0.04em; }
 .cover b em { font-style: normal; color: var(--gold); }
 .kind { color: var(--mute); font-size: 0.92rem; }
 .product-body { display: grid; gap: 14px; }
 .product p { color: var(--mute); }
 .ticks { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; font-size: 0.95rem; }
 .ticks li { display: grid; grid-template-columns: 14px 1fr; gap: 10px; }
-.ticks li::before { content: ""; width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); margin-top: 8px; }
+.ticks li::before { content: ""; width: 7px; height: 7px; background: var(--gold-metal); transform: rotate(45deg); margin-top: 8px; }
 .price-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; justify-content: flex-end; }
 .price { font: 700 1.9rem/1 var(--display); font-variant-numeric: tabular-nums; letter-spacing: -0.03em; }
 .buy-msg { font-size: 0.875rem; color: var(--gold); min-height: 1.2em; }
@@ -189,7 +194,7 @@ section { padding-block: clamp(72px, 9vw, 120px); }
 .upcoming-list b { font: 700 1.3rem/1.1 var(--display); letter-spacing: -0.02em; display: inline-flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .upcoming-list p { color: var(--mute); font-size: 0.95rem; }
 .upcoming-list .ticks { margin-top: 8px; color: var(--ink); font-size: 0.92rem; }
-.flag { font: 600 0.875rem/1 var(--body); color: var(--on-gold); background: var(--gold); border-radius: 4px; padding: 5px 8px; }
+.flag { font: 600 0.875rem/1 var(--body); color: var(--on-gold); background: var(--gold-metal); border-radius: 4px; padding: 5px 8px; }
 @media (max-width: 880px) { .upcoming { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
 
 /* About: the story. A gold line shaped like the story itself (up with the idea and the launch, down to the
@@ -202,10 +207,10 @@ section { padding-block: clamp(72px, 9vw, 120px); }
 .sl-track svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .sl-base, .sl-gold { fill: none; stroke-width: 3; stroke-linecap: round; }
 .sl-base { stroke: var(--raise-2); }
-.sl-gold { stroke: var(--gold); }
+.sl-gold { stroke: url(#sl-metal); }
 .sl-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--raise-2); transition: background-color .3s ease; }
-.sl-dot.past { background: var(--gold); }
-.sl-marker { position: absolute; left: 0; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--gold-hi); border: 5px solid var(--bg); }
+.sl-dot.past { background: var(--gold-metal); }
+.sl-marker { position: absolute; left: 0; top: 50%; width: 22px; height: 22px; margin: -11px 0 0 -11px; border-radius: 50%; background: var(--gold-metal); border: 5px solid var(--bg); }
 .sl-marks { list-style: none; margin: 14px 10px 0; padding: 0; position: relative; height: 1.6em; }
 .sl-marks li { position: absolute; top: 0; transform: translateX(-50%); white-space: nowrap; }
 .sl-marks li:first-child { transform: translateX(-10px); }
@@ -224,7 +229,7 @@ section { padding-block: clamp(72px, 9vw, 120px); }
 .sc-frame video, .sc-frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .sc-frame .contain { object-fit: contain; background: #000; }
 .sc-type { display: grid; place-items: center; background: #221D14; }
-.sc-type span { font: 800 clamp(5rem, 10vw, 8.5rem)/1 var(--display); letter-spacing: -0.05em; color: var(--gold); }
+.sc-type span { font: 700 clamp(5rem, 10vw, 8.5rem)/1 var(--display); letter-spacing: -0.05em; color: var(--gold); }
 .sc-media figcaption { font-size: 0.9375rem; line-height: 1.45; color: var(--mute); text-align: center; max-width: 42ch; }
 .sc-head h3 { font-size: clamp(2.1rem, 3.8vw, 3.3rem); line-height: 0.98; letter-spacing: -0.035em; }
 .sc-when { color: var(--gold); font-weight: 600; font-size: 1.0625rem; }
@@ -334,3 +339,6 @@ footer .hallmark { justify-self: start; }
 .cookies-btns .btn { padding: 13px 16px; }
 @media (min-width: 640px) { .cookies { left: auto; right: max(20px, env(safe-area-inset-right, 0px)); bottom: max(20px, env(safe-area-inset-bottom, 0px)); width: 24rem; } }
 .link-btn { padding: 0; border: 0; background: none; font: inherit; color: inherit; text-decoration: underline; text-underline-offset: 0.2em; cursor: pointer; }
+.sc-shot { display: block; animation: sc-shot .45s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes sc-shot { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .sc-shot { animation: none; } }

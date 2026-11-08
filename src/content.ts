@@ -232,7 +232,20 @@ export type JourneyStep = {
    * Optional: a looping clip or photo. `ratio` is its shape (default 4:5).
    * Landscape screen recordings use 16:10 and fit "contain".
    */
-  media?: { kind: "video" | "image"; src: string; poster?: string; alt: string; caption: string; fit?: "contain"; ratio?: "4:5" | "9:16" | "16:10" };
+  media?: {
+    kind: "video" | "image";
+    src: string;
+    poster?: string;
+    alt: string;
+    caption: string;
+    fit?: "contain";
+    ratio?: "4:5" | "9:16" | "16:10";
+    /**
+     * For a montage: when each shot starts (seconds into the loop) and what it shows.
+     * The caption under the clip follows the shot that is playing. Written by the montage script.
+     */
+    shots?: { t: number; caption: string }[];
+  };
   /** What this chapter turned into on 18K, linked to that part of the page. */
   became?: { label: string; href: string };
   links?: { label: string; href: string }[];
@@ -308,7 +321,7 @@ export const journey: JourneyStep[] = [
       "I started shooting for others: music videos, photography for brands and models, friends and family.",
       "It sharpened my skills and brought in extra cash. That kept me afloat, and every bit of it went back into Book Your Booth.",
     ],
-    media: { kind: "video", src: "/journey/filming-2024.mp4", poster: "/journey/filming-2024.jpg", ratio: "9:16", alt: "", caption: "Behind the scenes on a night shoot, July 2024" },
+    media: { kind: "video", src: "/journey/ch05.mp4", poster: "/journey/ch05.jpg", ratio: "9:16", alt: "", caption: "On set for a night shoot in July 2024, then 4angles shoots from December 2025 and January 2026", shots: [{ t: 0.0, caption: "On set for a night shoot, July 2024" }, { t: 2.47, caption: "A 4angles car shoot, December 2025" }, { t: 4.03, caption: "Same night, setting up inside the car" }, { t: 5.18, caption: "A 4angles shoot at a boxing gym, January 2026" }, { t: 7.12, caption: "Same day, filming the ring" }] },
     became: { label: "1:1 calls", href: "#consult" },
   },
   {
@@ -316,12 +329,12 @@ export const journey: JourneyStep[] = [
     mark: "Feb 25",
     rise: 0.72,
     year: "2025",
-    title: "Studio Crash",
+    title: "Full rooms, running on empty",
     body: [
-      "In February 2025 I started Studio Crash, an event series. Artists came into studios on Book Your Booth and freestyled on camera, and the only way in was to book through the app.",
-      "It marketed the studios and brought bookings to the app. But I ran all of it myself: hosting, shooting, editing, and running the business.",
+      "In February 2025 I started Studio Crash. Artists came into studios on Book Your Booth and freestyled on camera, and the only way in was to book through the app. It marketed the studios and brought bookings to the app.",
+      "I was running live events at the same time, and they went really well. But I did all of it myself: directing, hosting, shooting, editing and running the business. By then I was burning out.",
     ],
-    media: { kind: "video", src: "/work/bybhub-crash.mp4", ratio: "9:16", poster: "/work/bybhub-crash.jpg", alt: "", caption: "An ad I made for Studio Crash. The only way in was through the app." },
+    media: { kind: "video", src: "/journey/ch06.mp4", poster: "/journey/ch06.jpg", ratio: "9:16", alt: "", caption: "Directing artists for Studio Crash, hosting our live event in March 2025, and the Studio Crash ad I made", shots: [{ t: 0.0, caption: "Directing an artist for Studio Crash, February 2025" }, { t: 2.47, caption: "Checking a take with the artists, February 2025" }, { t: 4.42, caption: "Hosting our live event in the Orange Room, March 2025" }, { t: 7.28, caption: "A full room that night" }, { t: 9.43, caption: "The Studio Crash ad I made" }] },
     became: { label: "Film It Yourself", href: "#next" },
   },
   {
@@ -334,7 +347,7 @@ export const journey: JourneyStep[] = [
       "Momentum was picking up, but by then it was too late. The technical problems never stopped, and I couldn't find product-market fit while fighting the app.",
       "I was burned out and carrying all of it, and the money was running out. In April 2025 I put Book Your Booth on hold. Building the app had cost more than £70,000.",
     ],
-    media: { kind: "video", src: "/journey/on-hold-2025.mp4", poster: "/journey/on-hold-2025.jpg", alt: "", caption: "Filmed later that year, November 2025" },
+    media: { kind: "video", src: "/journey/ch07.mp4", poster: "/journey/ch07.jpg", alt: "", caption: "Filmed later that year, November 2025" },
   },
   {
     when: "February 2026",

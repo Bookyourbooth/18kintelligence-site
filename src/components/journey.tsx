@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type FocusEvent } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type FocusEvent, type RefObject } from "react";
 import type { JourneyStep } from "@/content";
 
 /*
@@ -63,8 +63,34 @@ function pointAt(segs: Seg[], pts: Pt[], p: number): Pt {
 
 const ratioOf = (m: NonNullable<JourneyStep["media"]>) => (m.ratio ?? "4:5").replace(":", " / ");
 
-function Picture({ s }: { s: JourneyStep }) {
+/** Which shot of a montage is on screen, from the clip's own clock. */
+function useShot(video: RefObject<HTMLVideoElement | null>, shots: { t: number }[] | undefined, live: boolean): number {
+  const [k, setK] = useState(0);
+  useEffect(() => {
+    const v = video.current;
+    if (!v || !shots?.length || !live) return;
+    const tick = () => {
+      const t = v.currentTime;
+      let i = 0;
+      for (let j = 0; j < shots.length; j++) if (shots[j].t <= t + 0.05) i = j;
+      setK((prev) => (prev === i ? prev : i));
+    };
+    v.addEventListener("timeupdate", tick);
+    v.addEventListener("seeked", tick);
+    tick();
+    return () => {
+      v.removeEventListener("timeupdate", tick);
+      v.removeEventListener("seeked", tick);
+    };
+  }, [video, shots, live]);
+  return k;
+}
+
+function Picture({ s, live }: { s: JourneyStep; live: boolean }) {
   const m = s.media;
+  const vid = useRef<HTMLVideoElement>(null);
+  const shots = m?.shots;
+  const k = useShot(vid, shots, live);
   if (!m) {
     return (
       <figure className="sc-media">
@@ -79,13 +105,23 @@ function Picture({ s }: { s: JourneyStep }) {
     <figure className="sc-media">
       <div className={`sc-frame${wide ? " wide" : ""}`} style={{ "--ar": ratioOf(m) } as CSSProperties}>
         {m.kind === "video" ? (
-          <video src={m.src} poster={m.poster} muted loop playsInline preload="none" aria-hidden="true" className={m.fit}></video>
+          <video ref={vid} src={m.src} poster={m.poster} muted loop playsInline preload="none" aria-hidden="true" className={m.fit}></video>
         ) : (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={m.src} alt={m.alt} loading="lazy" className={m.fit} />
         )}
       </div>
-      <figcaption>{m.caption}</figcaption>
+      {shots?.length && live ? (
+        <figcaption>
+          {/* The visible line follows the shot on screen; screen readers get the whole list once. */}
+          <span className="sc-shot" key={k} aria-hidden="true">
+            {shots[k].caption}
+          </span>
+          <span className="sr-only">{[m.caption, ...shots.map((x) => x.caption)].join(". ")}</span>
+        </figcaption>
+      ) : (
+        <figcaption>{m.caption}</figcaption>
+      )}
     </figure>
   );
 }
@@ -274,6 +310,12 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
           <div className="sl-track">
             <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true" focusable="false">
               <defs>
+                <linearGradient id="sl-metal" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0" stopColor="#C29A49" />
+                  <stop offset="0.35" stopColor="#EDD493" />
+                  <stop offset="0.7" stopColor="#D8B562" />
+                  <stop offset="1" stopColor="#C29A49" />
+                </linearGradient>
                 <clipPath id="sl-drawn">
                   <rect ref={drawn} x="0" y="-10" width={mode === "rest" ? W : 0} height={H + 20} />
                 </clipPath>
@@ -314,7 +356,7 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
                 <h3>{s.title}</h3>
                 <p className="sc-when">{s.when}</p>
               </div>
-              <Picture s={s} />
+              <Picture s={s} live={mode !== "rest"} />
               <div className="sc-body">
                 {s.body.map((b) => (
                   <p key={b}>{b}</p>
