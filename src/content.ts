@@ -129,6 +129,12 @@ export const site = {
     priceLabel: "£99",
     /** Short form of the policy on the Cal.com event. Change both together. */
     policy: "Free to reschedule, or a full refund if you cancel, up to 2 business days before your call.",
+    /** Before, during and after the call, in order. Change the Cal.com event description to match. */
+    steps: [
+      { name: "Before", detail: "Pay when you book, then answer a short questionnaire so we start on your plan, not on background." },
+      { name: "The call", detail: "One focused hour on Google Meet, on the thing you're stuck on. It's recorded." },
+      { name: "After", detail: "Your summary pack: everything we covered, written up in one place, with an action plan of next steps in order. Plus the recording." },
+    ],
     focuses: [
       { name: "Brand & content strategy", detail: "What to post, where, and how to turn views into customers." },
       { name: "Website or app review", detail: "A live teardown of your site or product idea, with fixes ranked by impact." },
@@ -213,10 +219,20 @@ export type JourneyStep = {
   /** Shown as the chapter's date, and as the big type when it has no media. */
   when: string;
   year: string;
+  /** Short date on the story line, e.g. "Sep 21". */
+  mark: string;
+  /**
+   * How high the story line sits at this chapter, 0 (lowest point) to 1.
+   * An editorial reading of Kwame's account, not a measurement.
+   */
+  rise: number;
   title: string;
   body: string[];
-  /** Optional: a looping clip or photo. Landscape screen recordings use fit "contain". */
-  media?: { kind: "video" | "image"; src: string; poster?: string; alt: string; caption: string; fit?: "contain" };
+  /**
+   * Optional: a looping clip or photo. `ratio` is its shape (default 4:5).
+   * Landscape screen recordings use 16:10 and fit "contain".
+   */
+  media?: { kind: "video" | "image"; src: string; poster?: string; alt: string; caption: string; fit?: "contain"; ratio?: "4:5" | "9:16" | "16:10" };
   /** What this chapter turned into on 18K, linked to that part of the page. */
   became?: { label: string; href: string };
   links?: { label: string; href: string }[];
@@ -231,6 +247,8 @@ export type JourneyStep = {
 export const journey: JourneyStep[] = [
   {
     when: "September 2021",
+    mark: "Sep 21",
+    rise: 0.5,
     year: "2021",
     title: "The idea: Book Your Booth",
     body: [
@@ -242,6 +260,8 @@ export const journey: JourneyStep[] = [
   },
   {
     when: "March 2022",
+    mark: "Mar 22",
+    rise: 0.42,
     year: "2022",
     title: "Paying a developer",
     body: [
@@ -252,6 +272,8 @@ export const journey: JourneyStep[] = [
   },
   {
     when: "June 2023",
+    mark: "Jun 23",
+    rise: 0.58,
     year: "2023",
     title: "Launch day, and everything that broke",
     body: [
@@ -263,6 +285,8 @@ export const journey: JourneyStep[] = [
   },
   {
     when: "2023 to January 2024",
+    mark: "Jan 24",
+    rise: 0.4,
     year: "2024",
     title: "Learning to film, because I had to",
     body: [
@@ -273,6 +297,8 @@ export const journey: JourneyStep[] = [
   },
   {
     when: "July 2024",
+    mark: "Jul 24",
+    rise: 0.52,
     year: "2024",
     title: "Filming for other people",
     body: [
@@ -283,17 +309,21 @@ export const journey: JourneyStep[] = [
   },
   {
     when: "February 2025",
+    mark: "Feb 25",
+    rise: 0.72,
     year: "2025",
     title: "Studio Crash",
     body: [
       "In February 2025 I started Studio Crash, an event series. Artists came into studios on Book Your Booth and freestyled on camera, and the only way in was to book through the app.",
       "It marketed the studios and brought bookings to the app. But I ran all of it myself: hosting, shooting, editing, and running the business.",
     ],
-    media: { kind: "video", src: "/work/bybhub-crash.mp4", poster: "/work/bybhub-crash.jpg", alt: "", caption: "An ad I made for Studio Crash. The only way in was through the app." },
+    media: { kind: "video", src: "/work/bybhub-crash.mp4", ratio: "9:16", poster: "/work/bybhub-crash.jpg", alt: "", caption: "An ad I made for Studio Crash. The only way in was through the app." },
     became: { label: "Film It Yourself", href: "#next" },
   },
   {
     when: "April 2025",
+    mark: "Apr 25",
+    rise: 0.06,
     year: "2025",
     title: "Putting it on hold",
     body: [
@@ -304,30 +334,36 @@ export const journey: JourneyStep[] = [
   },
   {
     when: "February 2026",
+    mark: "Feb 26",
+    rise: 0.32,
     year: "2026",
     title: "Starting again, in public",
     body: [
       "I started posting with no fixed plan, trying out what I cared about: the gym, business, marketing and tech. My first video was the story of losing that £70k.",
       "4angles was born around the same time and started paying. That gave me room to step back and properly learn AI.",
     ],
-    media: { kind: "video", src: "/work/story.mp4", poster: "/work/story.jpg", alt: "", caption: "My first post: losing £70k and starting again" },
+    media: { kind: "video", src: "/work/story.mp4", ratio: "9:16", poster: "/work/story.jpg", alt: "", caption: "My first post: losing £70k and starting again" },
     became: { label: "Content OS", href: "#next" },
     links: [{ label: "4angles", href: "https://4anglesagency.com" }],
   },
   {
     when: "April to November 2026",
+    mark: "Apr 26",
+    rise: 0.72,
     year: "2026",
     title: "Rebuilding it with AI",
     body: [
       "In April 2026 I went back to Book Your Booth and worked out how AI could cut my costs and let me build faster. In September, development on bybhub began.",
       "The first version took nearly three years of paying a developer. Within a few months, bybhub was fully built, bigger and better.",
     ],
-    media: { kind: "video", src: "/work/bybhub-site.mp4", poster: "/work/bybhub-site-poster.jpg", alt: "", caption: "bybhub.io, built with AI", fit: "contain" },
+    media: { kind: "video", src: "/work/bybhub-site.mp4", poster: "/work/bybhub-site-poster.jpg", alt: "", caption: "bybhub.io, built with AI", fit: "contain", ratio: "16:10" },
     became: { label: "Build With AI", href: "#next" },
     links: [{ label: "See bybhub", href: "https://bybhub.io" }],
   },
   {
     when: "Now",
+    mark: "Now",
+    rise: 0.96,
     year: "18K",
     title: "18K Intelligence",
     body: [
@@ -336,7 +372,7 @@ export const journey: JourneyStep[] = [
     ],
     media: site.portrait
       ? { kind: "image", src: site.portrait, alt: "Kwame, 18K Intelligence", caption: "Me, now" }
-      : { kind: "video", src: "/work/process.mp4", poster: "/work/process.jpg", alt: "", caption: "How I work now" },
+      : { kind: "video", src: "/work/process.mp4", ratio: "9:16", poster: "/work/process.jpg", alt: "", caption: "How I work now" },
     links: [
       { label: "Get the free kit", href: "#join" },
       { label: "Book a 1:1 call", href: "#consult" },

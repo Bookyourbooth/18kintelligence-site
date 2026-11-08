@@ -25,9 +25,9 @@ export default function Home() {
           </a>
           <nav className="nav-links" aria-label="Main">
             {site.videos.length > 0 && <a href="#work">Work</a>}
+            <a href="#about">My story</a>
             <a href="#consult">1:1 calls</a>
             <a href={live.length > 0 ? "#products" : "#next"}>Courses</a>
-            <a href="#about">About</a>
             <a className="btn au" href="#join">
               Get the free kit
             </a>
@@ -41,8 +41,9 @@ export default function Home() {
             <div className="hero-copy">
               <h1>Build it and film it yourself</h1>
               <p className="lede">
-                I&apos;m Kwame, a creative tech entrepreneur and the founder of 4angles, a marketing and software agency. Each week I show you how I build software with AI, film
-                it and market it.
+                I&apos;m Kwame, a creative tech entrepreneur and the founder of 4angles, a marketing and software agency. My first app took
+                nearly three years and more than £70,000. I rebuilt it with AI in a few months. Each week I show you how I build, film and
+                market, so you can skip the expensive part.
               </p>
               <CaptureForm
                 formId="join"
@@ -56,9 +57,14 @@ export default function Home() {
                   </>
                 }
               />
-              <a className="text-link" href="#consult">
-                Want help on your own project? Book a 1:1 call{site.consult.priceLabel && `, ${site.consult.priceLabel}`}
-              </a>
+              <p className="hero-more">
+                <a className="text-link" href="#about">
+                  Read how it happened
+                </a>
+                <a className="text-link" href="#consult">
+                  Book a 1:1 call{site.consult.priceLabel && `, ${site.consult.priceLabel}`}
+                </a>
+              </p>
             </div>
 
             <HeroMedia />
@@ -103,17 +109,43 @@ export default function Home() {
           </section>
         )}
 
-        <section id="consult" className="gut" aria-labelledby="con-h" style={site.videos.length > 0 ? { paddingTop: 0 } : undefined}>
+        <section id="about" className="gut" aria-labelledby="ab-h">
+          <div className="wrap">
+            <div className="sec-head">
+              <h2 id="ab-h">I learned it the expensive way</h2>
+              <p className="lede">
+                Five years, two versions of the same app and more than £70,000. Scroll through how it happened, and what each part
+                became.
+              </p>
+            </div>
+            <Journey steps={journey} />
+          </div>
+        </section>
+
+        <section id="consult" className="gut" aria-labelledby="con-h">
           <div className="wrap consult">
             <div className="consult-copy">
               <h2 id="con-h">Get my eyes on your business</h2>
               <p className="lede">
-                One focused hour on the thing you&apos;re stuck on. You leave with a clear plan and a recording to come back to.
+                One focused hour on the thing you&apos;re stuck on. Afterwards I send you a summary pack of everything we covered, with an
+                action plan for what to do next.
               </p>
-              <p className="lede">Pay when you book. A short questionnaire beforehand means we get straight to your plan.</p>
+              <ol className="consult-steps">
+                {site.consult.steps.map((st) => (
+                  <li key={st.name}>
+                    <b>{st.name}</b>
+                    <p>{st.detail}</p>
+                  </li>
+                ))}
+              </ol>
             </div>
             <div className="consult-card">
               <h3>1:1 strategy call</h3>
+              <ul className="ticks">
+                <li>{site.consult.length} on {site.consult.format}, recorded</li>
+                <li>A summary pack of everything we covered</li>
+                <li>An action plan with your next steps, in order</li>
+              </ul>
               <dl className="consult-meta">
                 {site.consult.priceLabel && (
                   <div>
@@ -244,23 +276,12 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="about" className="gut" aria-labelledby="ab-h" style={{ paddingTop: 0 }}>
-          <div className="wrap">
-            <div className="sec-head">
-              <h2 id="ab-h">Hey, I&apos;m Kwame</h2>
-              <p className="lede">
-                I&apos;m a creative tech entrepreneur. This is how I got here, and how each step became something I
-                teach.
-              </p>
-            </div>
-            <Journey steps={journey} />
-          </div>
-        </section>
-
         <section className="gut" aria-labelledby="faq-h" style={{ paddingTop: 0 }}>
           <div className="wrap">
+            <div className="faq-wrap">
             <div className="sec-head">
               <h2 id="faq-h">Good to know</h2>
+              <p className="lede">Calls, courses and access, answered.</p>
             </div>
             <div className="faq">
               <details>
@@ -269,7 +290,17 @@ export default function Home() {
               </details>
               <details>
                 <summary>What happens after I book a call?</summary>
-                <p>You get a confirmation email, a short questionnaire and the Google Meet link. The recording is sent after the call.</p>
+                <p>
+                  You get a confirmation email, a short questionnaire and the Google Meet link. After the call I send you the recording and
+                  your summary pack.
+                </p>
+              </details>
+              <details>
+                <summary>What&apos;s in the summary pack?</summary>
+                <p>
+                  Everything we covered on the call, written up in one place: what we looked at, what I&apos;d change and why, and an
+                  action plan with your next steps in order. It&apos;s yours to keep and work through.
+                </p>
               </details>
               <details>
                 <summary>Do I need experience to take the courses?</summary>
@@ -283,6 +314,7 @@ export default function Home() {
                 <summary>How do I get my course after paying?</summary>
                 <p>Straight after checkout you get an email with your access link. Keep it: it&apos;s yours for life.</p>
               </details>
+            </div>
             </div>
           </div>
         </section>
