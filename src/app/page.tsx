@@ -48,7 +48,7 @@ export default function Home() {
         <div className="gut">
           <div className="wrap hero">
             <div className="hero-copy">
-              <h1>Build it with AI and film it yourself</h1>
+              <h1>Build it with AI and take it to market</h1>
               <p className="lede">
                 I&apos;m Kwame, founder of 4angles. My first app took nearly three years and more than £70,000. I rebuilt it with AI in a
                 few months, and each week I show you how.

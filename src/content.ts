@@ -370,7 +370,7 @@ export const journey: JourneyStep[] = [
     mark: "Apr 26",
     rise: 0.18,
     year: "2026",
-    title: "Build it with AI and take it to market",
+    title: "Rebuilding it with AI",
     body: [
       "In April 2026 I went back to Book Your Booth and worked out how AI could cut my costs and let me build faster. In September, development on bybhub, the new Book Your Booth, began.",
       "The first version took nearly three years of paying a developer. Within a few months, bybhub was fully built, bigger and better.",
