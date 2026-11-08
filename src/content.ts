@@ -391,7 +391,7 @@ export const journey: JourneyStep[] = [
     ],
     media: site.portrait
       ? { kind: "image", src: site.portrait, alt: "Kwame, 18K Intelligence", caption: "Me, now" }
-      : { kind: "video", src: "/journey/now.mp4", poster: "/journey/now.jpg", alt: "", caption: "Me, on camera, and in the car at night in November 2025", shots: [{ t: 0.0, caption: "Me, on camera" }, { t: 5.48, caption: "In the car at night, November 2025" }] },
+      : { kind: "video", src: "/journey/now.mp4", poster: "/journey/now.jpg", alt: "", caption: "Me, on camera, documenting and spreading what I've learned", shots: [{ t: 0.0, caption: "Me, on camera" }, { t: 5.48, caption: "Documenting and spreading what I've learned" }] },
     kit: true,
     links: [{ label: `Or book a 1:1 call${site.consult.priceLabel ? `, ${site.consult.priceLabel}` : ""}`, href: "#consult" }],
   },
