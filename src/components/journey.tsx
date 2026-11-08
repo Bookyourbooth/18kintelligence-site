@@ -15,8 +15,9 @@ import type { JourneyStep } from "@/content";
  * Three ways it shows:
  * - "rest": no script or reduced motion. Every chapter in a plain column with its picture, the whole line drawn.
  * - "wide": wide screens. The chapters scroll as normal text beside a frame that holds still. The chapter at the
- *   reading line lights up and its picture slides into the frame.
- * - "flow": phones and tablets. Chapters stay in a column and each picture slides in as it arrives,
+ *   reading line lights up, and as the next heading rises toward it, that chapter's picture opens from the top of
+ *   the frame down over the last one, in step with the scroll.
+ * - "flow": phones and tablets. Chapters stay in a column and each picture opens from the top down as it arrives,
  *   while the line rides at the top of the screen showing where you are.
  */
 
@@ -143,6 +144,8 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
   const landed = useRef(false);
   const [mode, setMode] = useState<Mode>("rest");
   const [on, setOn] = useState(0);
+  // Wide: the chapter whose picture is opening over the current one, or -1.
+  const [next, setNext] = useState(-1);
   const [inView, setInView] = useState(false);
   const [posters, setPosters] = useState(false);
   const n = steps.length;
@@ -206,36 +209,82 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
     };
   }, [mode]);
 
-  /** Story position: 0 at the first chapter, n - 1 at the last, from which chapter's top has passed the reading line. */
-  const position = useCallback((): number => {
-    const el = box.current;
-    if (!el) return 0;
-    const at = innerHeight * 0.45;
-    const tops = [...el.querySelectorAll<HTMLElement>(".scene")].map((s) => s.getBoundingClientRect().top);
-    if (!tops.length || tops[0] > at) return 0;
-    for (let i = 0; i < tops.length - 1; i++) {
-      if (tops[i + 1] > at) return i + clamp01((at - tops[i]) / (tops[i + 1] - tops[i]));
-    }
-    return n - 1;
-  }, [n]);
-
-  // Follow the scroll while the section is near the screen: the marker, the line, the low point and the lit chapter.
+  // Follow the scroll while the section is near the screen: the marker, the line, the low point, the lit chapter
+  // and, on wide screens, the next picture opening in the frame.
   useEffect(() => {
     const el = box.current;
     if (!el || mode === "rest") return;
     const root = document.documentElement;
     const endX = pts[n - 1]?.x ?? W;
+    const scenes = [...el.querySelectorAll<HTMLElement>(".scene")];
+    const slides = [...el.querySelectorAll<HTMLElement>(".j-slide")];
+    const pic = (s: HTMLElement) => s.querySelector<HTMLElement>(".sc-frame > *");
     let frame = 0;
     let last = -1;
+    let coming = -2;
     let dimWas = "";
+    let shown: HTMLElement[] = [];
+
+    /** Where a slide's picture starts and its caption ends, from the top of the stage. */
+    const reach = (s: HTMLElement): [number, number] => {
+      const f = s.querySelector<HTMLElement>(".sc-frame");
+      const c = s.querySelector<HTMLElement>("figcaption");
+      const top = f ? f.offsetTop : 0;
+      return [top, c ? c.offsetTop + c.offsetHeight : f ? top + f.offsetHeight : s.offsetHeight];
+    };
+
+    /**
+     * Wide: chapter `cur` holds the frame and the next one opens over it from the top down, `w` of the way (0 to 1).
+     * Both are cut along one line, so above it is the new picture and below it the last one, whatever their shapes.
+     */
+    const open = (cur: number, w: number) => {
+      const held = slides[cur];
+      const opening = w > 0 ? slides[cur + 1] : undefined;
+      for (const s of shown) {
+        if (s === held || s === opening) continue;
+        s.removeAttribute("data-show");
+        s.style.removeProperty("clip-path");
+        pic(s)?.style.removeProperty("transform");
+      }
+      shown = opening ? [held, opening] : held ? [held] : [];
+      if (!held) return;
+      held.setAttribute("data-show", "");
+      pic(held)?.style.removeProperty("transform");
+      if (!opening) {
+        held.style.removeProperty("clip-path");
+        return;
+      }
+      const [a, b] = reach(held);
+      const [c, d] = reach(opening);
+      const from = Math.min(a, c);
+      const y = (from + (Math.max(b, d) - from) * w).toFixed(1);
+      opening.setAttribute("data-show", "");
+      opening.style.clipPath = `inset(0 0 calc(100% - ${y}px) 0)`;
+      held.style.clipPath = `inset(${y}px 0 0 0)`;
+      // The new picture settles from a slight zoom as it opens.
+      pic(opening)?.style.setProperty("transform", `scale(${(1.06 - 0.06 * w).toFixed(4)})`);
+    };
 
     const paint = () => {
       frame = 0;
-      const p = position();
-      const at = pointAt(segs, pts, p);
-      marker.current?.style.setProperty("left", `${(at.x / W) * 100}%`);
-      marker.current?.style.setProperty("top", `${(at.y / H) * 100}%`);
-      drawn.current?.setAttribute("width", at.x.toFixed(1));
+      const vh = innerHeight;
+      // Story position: 0 at the first chapter, n - 1 at the last, from which chapter's top has passed the reading line.
+      const at = vh * 0.45;
+      const tops = scenes.map((s) => s.getBoundingClientRect().top);
+      let p = 0;
+      if (tops.length && tops[0] <= at) {
+        p = n - 1;
+        for (let i = 0; i < tops.length - 1; i++) {
+          if (tops[i + 1] > at) {
+            p = i + clamp01((at - tops[i]) / (tops[i + 1] - tops[i]));
+            break;
+          }
+        }
+      }
+      const pt = pointAt(segs, pts, p);
+      marker.current?.style.setProperty("left", `${(pt.x / W) * 100}%`);
+      marker.current?.style.setProperty("top", `${(pt.y / H) * 100}%`);
+      drawn.current?.setAttribute("width", pt.x.toFixed(1));
       // The dotted stretch to "You" draws in as the last chapter arrives.
       tail.current?.setAttribute("width", (clamp01((p - (n - 1.35)) / 0.35) * (W - endX)).toFixed(1));
       // The low point: near the lowest chapter the clips lose their colour and the page darkens, then it all comes back.
@@ -250,6 +299,18 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
       if (now !== last) {
         last = now;
         setOn(now);
+      }
+      // Wide: the next picture opens as its heading rises from 80% of the way down the screen to the reading line,
+      // so it is whole by the time that chapter lights up. Locked to the scroll, so going back up rolls it back.
+      if (slides.length) {
+        const head = tops[now + 1];
+        const w = head === undefined ? 0 : clamp01((vh * 0.8 - head) / (vh * 0.8 - at));
+        open(now, w);
+        const nx = w > 0 ? now + 1 : -1;
+        if (nx !== coming) {
+          coming = nx;
+          setNext(nx);
+        }
       }
     };
     const onScroll = () => {
@@ -275,11 +336,16 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
       cancelAnimationFrame(frame);
       root.style.removeProperty("--low");
       el.removeAttribute("data-low");
+      slides.forEach((s) => {
+        s.removeAttribute("data-show");
+        s.style.removeProperty("clip-path");
+        pic(s)?.style.removeProperty("transform");
+      });
     };
-  }, [mode, position, segs, pts, n, low]);
+  }, [mode, segs, pts, n, low]);
 
-  // Wide: play the chapter in the frame and warm up the next, only while the story is near the screen.
-  // The short wait means a jump across several chapters starts one clip, not all of them.
+  // Wide: play the chapter in the frame and the one opening over it, and warm up the next, only while the story is
+  // near the screen. The short wait means a jump across several chapters starts one clip, not all of them.
   useEffect(() => {
     const el = box.current;
     if (!el || mode !== "wide") return;
@@ -288,16 +354,16 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
       () =>
         vids.forEach((v) => {
           const i = Number(v.closest<HTMLElement>(".j-slide")?.dataset.i);
-          if (inView && i === on) v.play().catch(() => {});
+          if (inView && (i === on || i === next)) v.play().catch(() => {});
           else v.pause();
           if (inView && i === on + 1) v.preload = "auto";
         }),
       150,
     );
     return () => clearTimeout(t);
-  }, [mode, on, inView]);
+  }, [mode, on, next, inView]);
 
-  // Flow: each picture slides in the first time it arrives, and each clip plays while it's on screen.
+  // Flow: each picture opens from the top down the first time it arrives, and each clip plays while it's on screen.
   useEffect(() => {
     const el = box.current;
     if (!el || mode !== "flow") return;
@@ -306,10 +372,13 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
       (entries) =>
         entries.forEach((e) => {
           if (!e.isIntersecting) return;
+          // Coming back up to a picture above the screen: show it whole rather than open it out of sight.
+          if (e.boundingClientRect.top < 0) e.target.classList.add("now");
           e.target.classList.add("seen");
           show.unobserve(e.target);
         }),
-      { rootMargin: "0px 0px -12% 0px" },
+      // Opens once the top of the picture is about 80% of the way down the screen.
+      { rootMargin: "0px 0px -18% 0px" },
     );
     figs.forEach((f) => show.observe(f));
     const vids = [...el.querySelectorAll<HTMLVideoElement>(".scene video")];
@@ -449,11 +518,11 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
       </nav>
 
       <div className="story-body">
-        {/* Wide screens: one frame holds still beside the words, and each chapter's picture slides into it in turn. */}
+        {/* Wide screens: one frame holds still beside the words, and each chapter's picture opens into it from the top down. */}
         {mode === "wide" && (
           <div className="j-stage" aria-hidden="true">
             {steps.map((s, i) => (
-              <div className={`j-slide${i === on ? " on" : ""}`} data-i={i} key={i}>
+              <div className="j-slide" data-i={i} key={i}>
                 <Picture s={s} live posters={posters} />
               </div>
             ))}
