@@ -299,19 +299,19 @@ export const journey: JourneyStep[] = [
       "We planned to launch in March 2023. While we waited, I started filming on my iPhone in November 2022 to build our Instagram and a waiting list.",
       "We launched in June 2023, three months late. There were bugs and problems everywhere, and every fix cost money we didn't have. So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
     ],
-    media: { kind: "video", src: "/journey/ch03.mp4", poster: "/journey/ch03.jpg", alt: "", caption: "Filming studio visits for our Instagram from November 2022, and me at a Book Your Booth stand in August 2023", shots: [{ t: 0.0, caption: "Filming studios for our Instagram, November 2022" }, { t: 3.68, caption: "Walking into a studio, March 2023" }, { t: 7.53, caption: "Another studio visit, May 2023" }, { t: 10.97, caption: "A studio's page on the app, inside that studio, July 2023" }, { t: 14.68, caption: "SM Studios, July 2023" }, { t: 16.12, caption: "VixMix Studios on the app, inside VixMix, August 2023" }, { t: 17.97, caption: "Heading into a session, September 2023" }, { t: 21.43, caption: "The Book Your Booth hoodie, October 2023" }, { t: 22.57, caption: "Me at a Book Your Booth stand, August 2023" }] },
+    media: { kind: "video", src: "/journey/ch03.mp4", poster: "/journey/ch03.jpg", alt: "", caption: "Filming studio visits for our Instagram from March 2023, and me at a Book Your Booth stand in August 2023", shots: [{ t: 0.0, caption: "Walking into a studio, March 2023" }, { t: 3.68, caption: "Another studio visit, May 2023" }, { t: 7.12, caption: "A studio's page on the app, inside that studio, July 2023" }, { t: 10.83, caption: "SM Studios, July 2023" }, { t: 12.28, caption: "VixMix Studios on the app, inside VixMix, August 2023" }, { t: 14.13, caption: "Heading into a session, September 2023" }, { t: 17.57, caption: "The Book Your Booth hoodie, October 2023" }, { t: 18.73, caption: "Me at a Book Your Booth stand, August 2023" }] },
   },
   {
     when: "2023 to January 2024",
     mark: "Jan 24",
     rise: 0.16,
     year: "2024",
-    title: "Learning to film, because I had to",
+    title: "Learning the art of marketing, because I had to",
     body: [
       "Around launch, studios started asking me to make content for them. I said no, to stay focused on Book Your Booth. I didn't see it then, but that was a business.",
       "From May to November 2023 I hired videographers and photographers, but they couldn't put what was in my head on screen. So in January 2024 I picked up a camera and taught myself, and spent that month in LA learning the craft.",
     ],
-    media: { kind: "video", src: "/journey/ch04.mp4", poster: "/journey/ch04.jpg", alt: "", caption: "Filming the videographers I hired in 2023, then learning my own camera in January 2024", shots: [{ t: 0.0, caption: "A videographer I hired, at Spins Studio, May 2023" }, { t: 1.87, caption: "Same session: him, the artist and the booth" }, { t: 3.72, caption: "Spins Studio, May 2023" }, { t: 5.38, caption: "Filming the videographer at VixMix Studios, August 2023" }, { t: 7.23, caption: "Then I picked up a camera myself, January 2024" }, { t: 9.08, caption: "Learning my Sony, January 2024" }, { t: 10.73, caption: "With the camera in LA, January 2024" }, { t: 12.28, caption: "Filming myself in Los Angeles, January 2024" }] },
+    media: { kind: "video", src: "/journey/ch04.mp4", poster: "/journey/ch04.jpg", alt: "", caption: "Filming the videographers I hired in 2023, then learning my own camera in January 2024", shots: [{ t: 0.0, caption: "A videographer I hired, at Spins Studio, May 2023" }, { t: 3.88, caption: "Same session: him, the artist and the booth" }, { t: 7.73, caption: "Filming into the booth at Spins Studio, May 2023" }, { t: 10.76, caption: "Filming the videographer at VixMix Studios, August 2023" }, { t: 12.61, caption: "Then I picked up a camera myself, January 2024" }, { t: 14.46, caption: "Learning my Sony, January 2024" }, { t: 16.11, caption: "With the camera in LA, January 2024" }, { t: 17.65, caption: "Filming myself in Los Angeles, January 2024" }] },
     became: { label: "Film It Yourself", href: "#film-it-yourself" },
   },
   {
@@ -337,7 +337,7 @@ export const journey: JourneyStep[] = [
       "In February 2025 I started Studio Crash. Artists came into studios on Book Your Booth and freestyled on camera, and the only way in was to book through the app. It marketed the studios and brought bookings to the app.",
       "I was running live events at the same time, and they went really well. But I did all of it myself: directing, hosting, shooting, editing and running the business. By then I was burning out.",
     ],
-    media: { kind: "video", src: "/journey/ch06.mp4", poster: "/journey/ch06.jpg", ratio: "9:16", alt: "", caption: "Directing artists for Studio Crash in February 2025, hosting our live event in March 2025, and the Studio Crash ad I made", shots: [{ t: 0.0, caption: "Directing an artist for Studio Crash, February 2025" }, { t: 1.67, caption: "Cueing the artist from behind my camera" }, { t: 3.32, caption: "Checking a take, February 2025" }, { t: 4.78, caption: "Camera rolling on an artist at SM Studios" }, { t: 6.33, caption: "A singer at the mic, same night" }, { t: 7.88, caption: "Checking the shot, February 2025" }, { t: 9.23, caption: "Our live event in the Orange Room, March 2025" }, { t: 10.58, caption: "Hosting on the mic" }, { t: 12.53, caption: "A full room that night" }, { t: 13.98, caption: "Filming content on the floor after the show" }, { t: 15.23, caption: "Filming content on the floor after the show" }, { t: 16.48, caption: "Closing the night on the mic" }, { t: 18.53, caption: "The Studio Crash ad I made" }] },
+    media: { kind: "video", src: "/journey/ch06.mp4", poster: "/journey/ch06.jpg", ratio: "9:16", alt: "", caption: "Directing artists for Studio Crash in February 2025, hosting our live event in March 2025, and the Studio Crash ad I made", shots: [{ t: 0.0, caption: "Directing an artist for Studio Crash, February 2025" }, { t: 3.88, caption: "Cueing the artist from behind my camera" }, { t: 6.53, caption: "Checking a take, February 2025" }, { t: 7.98, caption: "Camera rolling on an artist at SM Studios" }, { t: 9.53, caption: "A singer at the mic, same night" }, { t: 11.08, caption: "Checking the shot, February 2025" }, { t: 12.43, caption: "Our live event in the Orange Room, March 2025" }, { t: 13.78, caption: "Hosting on the mic" }, { t: 15.73, caption: "A full room that night" }, { t: 17.18, caption: "A full room in the Blue Room" }, { t: 20.28, caption: "Filming content on the floor after the show" }, { t: 22.93, caption: "Hyping up the artists from behind the camera" }, { t: 26.28, caption: "Closing the night on the mic" }, { t: 28.33, caption: "The Studio Crash ad I made" }] },
   },
   {
     when: "April 2025",
@@ -370,7 +370,7 @@ export const journey: JourneyStep[] = [
     mark: "Apr 26",
     rise: 0.18,
     year: "2026",
-    title: "Rebuilding it with AI",
+    title: "Build it with AI and take it to market",
     body: [
       "In April 2026 I went back to Book Your Booth and worked out how AI could cut my costs and let me build faster. In September, development on bybhub, the new Book Your Booth, began.",
       "The first version took nearly three years of paying a developer. Within a few months, bybhub was fully built, bigger and better.",
