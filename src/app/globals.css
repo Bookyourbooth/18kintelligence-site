@@ -336,9 +336,9 @@ section { padding-block: clamp(72px, 9vw, 120px); }
 
 /* Phones: chapters stay in a column; the line rides at the top of the screen and pictures wipe in as they arrive. */
 .story.flow .story-line { position: sticky; top: var(--nav); z-index: 5; background: var(--bg); padding: 8px 0 12px; margin-bottom: 36px; }
-.story.flow .sl-now { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 0.9375rem; color: var(--mute); margin-bottom: 4px; }
+.story.flow .sl-now { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 0.9375rem; color: var(--mute); margin-bottom: 8px; }
 .story.flow .sl-now b { color: var(--gold); font-weight: 600; }
-.story.flow .sl-track { height: 40px; }
+.story.flow .sl-track { height: 52px; }
 .story.flow .sl-marks { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); margin: 0; }
 /* The picture is there as soon as it enters and settles as it arrives: no wipe, so no empty band under the heading. */
 .story.flow .sc-frame > * { transform: scale(calc(1.08 - 0.08 * var(--r, 1))); }

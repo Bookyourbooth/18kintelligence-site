@@ -9,7 +9,8 @@ import type { JourneyStep } from "@/content";
  *
  * A gold line runs under the chapters like the shape of the story: it climbs
  * with the idea and the launch, drops to its lowest point when Book Your Booth
- * went on hold, and rises again to now. A marker rides along it as you scroll.
+ * went on hold, recovers slowly, then shoots up from April 2026 to now and on
+ * past the top. A marker rides along it as you scroll.
  *
  * Three ways it shows:
  * - "rest": no script or reduced motion. Every chapter in a plain column, the whole line drawn.
@@ -146,6 +147,12 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
   const slots = runOn ? n : n - 1;
   const { d, segs, pts } = useMemo(() => curve(steps, slots), [steps, slots]);
   const end = pts[n - 1] ?? { x: W / 2, y: H / 2 };
+  // The dotted run-on keeps climbing at the angle the line arrives at "Now" (at least a gentle rise),
+  // and leaves through the top of the box when it gets there.
+  const prev = pts[n - 2];
+  const climb = Math.min(prev && end.x > prev.x ? (end.y - prev.y) / (end.x - prev.x) : 0, -0.06);
+  const runY = end.y + climb * (W - end.x);
+  const runTo = runY < -4 ? { x: end.x + (-4 - end.y) / climb, y: -4 } : { x: W, y: runY };
   /** The lowest chapter: the clips lose their colour and the page darkens as the story nears it. */
   const low = useMemo(() => steps.reduce((m, s, i) => (s.rise < steps[m].rise ? i : m), 0), [steps]);
 
@@ -409,7 +416,7 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
               {runOn && (
                 <path
                   className="sl-next"
-                  d={`M${end.x.toFixed(1)} ${end.y.toFixed(1)} L${W} ${Math.max(0, end.y - 6).toFixed(1)}`}
+                  d={`M${end.x.toFixed(1)} ${end.y.toFixed(1)} L${runTo.x.toFixed(1)} ${runTo.y.toFixed(1)}`}
                   vectorEffect="non-scaling-stroke"
                   clipPath="url(#sl-run-on)"
                 />

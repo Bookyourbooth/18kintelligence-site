@@ -260,24 +260,27 @@ export type JourneyStep = {
  * The 2021 clip is made from Kwame's Canva uploads (Aug 2022 to Apr 2025), so its caption names no date.
  * Other pictures come from Kwame's Photos library and the LaCie drive (picked 8 Nov 2026); each caption gives when it was filmed.
  * Wanted: a screen recording of building with Claude Code for the rebuild chapter.
+ * The line climbs slowly back from the low point, then turns sharply up from April 2026, when momentum
+ * picked up, to a "Now" far above everything before it: the point he took off (Kwame's reading, 8 Nov 2026).
+ * Earlier chapters keep their ups and downs in a low band.
  */
 export const journey: JourneyStep[] = [
   {
     when: "September 2021",
     mark: "Sep 21",
-    rise: 0.5,
+    rise: 0.22,
     year: "2021",
     title: "The idea: Book Your Booth",
     body: [
       "In 2020, during Covid, I went to a studio for the first time, Pirate Studios, with friends. I loved it. Booking one was hard and jarring, so in September 2021 I came up with the idea: the Airbnb for studios.",
       "My co-founder and I put our own money in and bootstrapped it.",
     ],
-    media: { kind: "video", src: "/journey/ch01.mp4", poster: "/journey/ch01.jpg", alt: "", caption: "Showing the app outside VixMix Studios in March 2024, and our first logos and app designs", shots: [{ t: 0.0, caption: "Showing the app outside VixMix Studios, March 2024" }, { t: 1.38, caption: "The app opening on my phone, August 2023" }, { t: 3.42, caption: "Browsing studios on the app, March 2024" }, { t: 5.47, caption: "Where it started: our first logos and app designs" }] },
+    media: { kind: "video", src: "/journey/ch01.mp4", poster: "/journey/ch01.jpg", alt: "", caption: "Showing the app outside VixMix Studios in March 2024, and our first logos and app designs", shots: [{ t: 0.0, caption: "Showing the app outside VixMix Studios, March 2024" }, { t: 5.83, caption: "The app opening on my phone, August 2023" }, { t: 7.88, caption: "Browsing studios on the app, March 2024" }, { t: 9.93, caption: "Where it started: our first logos and app designs" }] },
   },
   {
     when: "March 2022",
     mark: "Mar 22",
-    rise: 0.42,
+    rise: 0.17,
     year: "2022",
     title: "Paying a developer",
     body: [
@@ -289,7 +292,7 @@ export const journey: JourneyStep[] = [
   {
     when: "June 2023",
     mark: "Jun 23",
-    rise: 0.58,
+    rise: 0.27,
     year: "2023",
     title: "Launch day, and everything that broke",
     body: [
@@ -301,7 +304,7 @@ export const journey: JourneyStep[] = [
   {
     when: "2023 to January 2024",
     mark: "Jan 24",
-    rise: 0.4,
+    rise: 0.16,
     year: "2024",
     title: "Learning to film, because I had to",
     body: [
@@ -314,7 +317,7 @@ export const journey: JourneyStep[] = [
   {
     when: "July 2024",
     mark: "Jul 24",
-    rise: 0.52,
+    rise: 0.23,
     year: "2024",
     title: "Filming for other people",
     body: [
@@ -327,7 +330,7 @@ export const journey: JourneyStep[] = [
   {
     when: "February 2025",
     mark: "Feb 25",
-    rise: 0.72,
+    rise: 0.32,
     year: "2025",
     title: "Full rooms, running on empty",
     body: [
@@ -339,7 +342,7 @@ export const journey: JourneyStep[] = [
   {
     when: "April 2025",
     mark: "Apr 25",
-    rise: 0.06,
+    rise: 0,
     year: "2025",
     title: "Putting it on hold",
     body: [
@@ -351,7 +354,7 @@ export const journey: JourneyStep[] = [
   {
     when: "February 2026",
     mark: "Feb 26",
-    rise: 0.32,
+    rise: 0.1,
     year: "2026",
     title: "Starting again, in public",
     body: [
@@ -365,7 +368,7 @@ export const journey: JourneyStep[] = [
   {
     when: "April to November 2026",
     mark: "Apr 26",
-    rise: 0.72,
+    rise: 0.18,
     year: "2026",
     title: "Rebuilding it with AI",
     body: [
@@ -379,7 +382,7 @@ export const journey: JourneyStep[] = [
   {
     when: "Now",
     mark: "Now",
-    rise: 0.96,
+    rise: 1,
     year: "18K",
     title: "18K Intelligence",
     body: [
@@ -388,7 +391,7 @@ export const journey: JourneyStep[] = [
     ],
     media: site.portrait
       ? { kind: "image", src: site.portrait, alt: "Kwame, 18K Intelligence", caption: "Me, now" }
-      : { kind: "video", src: "/journey/now.mp4", poster: "/journey/now.jpg", alt: "", caption: "Me, on camera" },
+      : { kind: "video", src: "/journey/now.mp4", poster: "/journey/now.jpg", alt: "", caption: "Me, on camera, and in the car at night in November 2025", shots: [{ t: 0.0, caption: "Me, on camera" }, { t: 5.48, caption: "In the car at night, November 2025" }] },
     kit: true,
     links: [{ label: `Or book a 1:1 call${site.consult.priceLabel ? `, ${site.consult.priceLabel}` : ""}`, href: "#consult" }],
   },
