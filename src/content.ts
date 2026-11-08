@@ -115,10 +115,10 @@ export const site = {
   ] as { value: string; label: string; period: string; proof: string }[],
   /** Looping clips of real posts. Each tile opens the post on Instagram. */
   videos: [
-    { title: "A 7‑second reel that reached the most people", tag: "Reach", src: "/work/reach.mp4", poster: "/work/reach.jpg", href: "https://www.instagram.com/reel/DZ5alo8M8sv/" },
-    { title: "Losing £70k and starting again", tag: "Story", src: "/work/story.mp4", poster: "/work/story.jpg", href: "https://www.instagram.com/reel/DVLc9KQDDKr/" },
-    { title: "Five mistakes I made building bybhub", tag: "Lessons", src: "/work/mistakes.mp4", poster: "/work/mistakes.jpg", href: "https://www.instagram.com/reel/DXMA3zWjNEL/" },
-    { title: "My process in five steps, on a real client job", tag: "Tutorial", src: "/work/process.mp4", poster: "/work/process.jpg", href: "https://www.instagram.com/reel/DavWhHGMfwq/" },
+    { title: "A 7‑second reel that reached the most people", tag: "Reach", src: "/work/reels/reach.mp4", poster: "/work/reach.jpg", href: "https://www.instagram.com/reel/DZ5alo8M8sv/" },
+    { title: "Losing £70k and starting again", tag: "Story", src: "/work/reels/story.mp4", poster: "/work/story.jpg", href: "https://www.instagram.com/reel/DVLc9KQDDKr/" },
+    { title: "Five mistakes I made building bybhub", tag: "Lessons", src: "/work/reels/mistakes.mp4", poster: "/work/mistakes.jpg", href: "https://www.instagram.com/reel/DXMA3zWjNEL/" },
+    { title: "My process in five steps, on a real client job", tag: "Tutorial", src: "/work/reels/process.mp4", poster: "/work/process.jpg", href: "https://www.instagram.com/reel/DavWhHGMfwq/" },
   ] as { title: string; tag: string; src: string; poster: string; href: string }[],
   testimonials: [] as { quote: string; name: string; role: string }[],
 
@@ -129,6 +129,12 @@ export const site = {
     priceLabel: "£99",
     /** Short form of the policy on the Cal.com event. Change both together. */
     policy: "Free to reschedule, or a full refund if you cancel, up to 2 business days before your call.",
+    /** Before, during and after the call, in order. Change the Cal.com event description to match. */
+    steps: [
+      { name: "Before", detail: "Pay when you book, then answer a short questionnaire so we start on your plan, not on background." },
+      { name: "The call", detail: "One focused hour on Google Meet, on the thing you're stuck on. It's recorded." },
+      { name: "After", detail: "Your summary pack: everything we covered, written up in one place, with an action plan of next steps in order. Plus the recording." },
+    ],
     focuses: [
       { name: "Brand & content strategy", detail: "What to post, where, and how to turn views into customers." },
       { name: "Website or app review", detail: "A live teardown of your site or product idea, with fixes ranked by impact." },
@@ -189,11 +195,12 @@ export const site = {
 /** `phrase` is how the welcome email names each part. */
 export function kitItems(): { id: string; item: string; format: string; phrase: string }[] {
   const k = site.kitParts;
+  const checks = k.checklist.reduce((n, s) => n + s.items.length, 0);
   return [
     k.gear.length > 0 && { id: "gear", item: "My filmmaking gear list", format: "LIST", phrase: "my filmmaking gear list" },
     k.presetsFile && { id: "presets", item: "Editing presets & LUTs", format: "PACK", phrase: "my editing presets and LUTs" },
-    k.aiTools.length > 0 && { id: "ai-tools", item: "The AI tools I build with", format: "GUIDE", phrase: "the AI tools I build with" },
-    k.checklist.length > 0 && { id: "checklist", item: "First-website checklist", format: "CHECKLIST", phrase: "a first-website checklist" },
+    k.aiTools.length > 0 && { id: "ai-tools", item: "The AI tools I build with", format: "GUIDE", phrase: k.stack.length > 0 ? "the AI tools and stack I build with" : "the AI tools I build with" },
+    k.checklist.length > 0 && { id: "checklist", item: "First-website checklist", format: "CHECKLIST", phrase: `a ${checks}-point checklist for your first website` },
   ].filter((x): x is { id: string; item: string; format: string; phrase: string } => Boolean(x));
 }
 
@@ -213,133 +220,179 @@ export type JourneyStep = {
   /** Shown as the chapter's date, and as the big type when it has no media. */
   when: string;
   year: string;
+  /** Short date on the story line, e.g. "Sep 21". */
+  mark: string;
+  /**
+   * How high the story line sits at this chapter, 0 (lowest point) to 1.
+   * An editorial reading of Kwame's account, not a measurement.
+   */
+  rise: number;
   title: string;
   body: string[];
-  /** Optional: a looping clip or photo. Landscape screen recordings use fit "contain". */
-  media?: { kind: "video" | "image"; src: string; poster?: string; alt: string; caption: string; fit?: "contain" };
+  /**
+   * Optional: a looping clip or photo. `ratio` is its shape (default 4:5).
+   * Landscape screen recordings use 16:10 and fit "contain".
+   */
+  media?: {
+    kind: "video" | "image";
+    src: string;
+    poster?: string;
+    alt: string;
+    caption: string;
+    fit?: "contain";
+    ratio?: "4:5" | "9:16" | "16:10";
+    /**
+     * For a montage: when each shot starts (seconds into the loop) and what it shows.
+     * The caption under the clip follows the shot that is playing. Written by the montage script.
+     */
+    shots?: { t: number; caption: string }[];
+  };
   /** What this chapter turned into on 18K, linked to that part of the page. */
   became?: { label: string; href: string };
   links?: { label: string; href: string }[];
+  /** Shows the Starter Kit signup in this chapter. */
+  kit?: boolean;
 };
 
 /**
  * The About section: Kwame's journey, told by Kwame (Nov 2026).
  * Chapters without media show their year until a photo or clip is added.
- * The 2021 and June 2023 clips are made from Kwame's Canva uploads (Aug 2022 to Apr 2025), so their captions name no dates.
- * Wanted: a music video or shoot from 2024, and a portrait for "Now".
+ * The 2021 clip is made from Kwame's Canva uploads (Aug 2022 to Apr 2025), so its caption names no date.
+ * Other pictures come from Kwame's Photos library and the LaCie drive (picked 8 Nov 2026); each caption gives when it was filmed.
+ * Wanted: a screen recording of building with Claude Code for the rebuild chapter.
+ * The line climbs slowly back from the low point, then turns sharply up from April 2026, when momentum
+ * picked up, to a "Now" far above everything before it: the point he took off (Kwame's reading, 8 Nov 2026).
+ * Earlier chapters keep their ups and downs in a low band.
  */
 export const journey: JourneyStep[] = [
   {
     when: "September 2021",
+    mark: "Sep 21",
+    rise: 0.22,
     year: "2021",
     title: "The idea: Book Your Booth",
     body: [
       "In 2020, during Covid, I went to a studio for the first time, Pirate Studios, with friends. I loved it. Booking one was hard and jarring, so in September 2021 I came up with the idea: the Airbnb for studios.",
       "My co-founder and I put our own money in and bootstrapped it.",
     ],
-    media: { kind: "video", src: "/journey/byb-2021.mp4", poster: "/journey/byb-2021.jpg", alt: "", caption: "Before launch: our first logos and app designs" },
-    became: { label: "Build With AI", href: "#next" },
+    media: { kind: "video", src: "/journey/ch01.mp4", poster: "/journey/ch01.jpg", alt: "", caption: "Showing the app outside VixMix Studios in March 2024, and our first logos and app designs", shots: [{ t: 0.0, caption: "Showing the app outside VixMix Studios, March 2024" }, { t: 5.83, caption: "The app on my phone at our stand, August 2023" }, { t: 8.3, caption: "Browsing studios on the app, March 2024" }, { t: 12.35, caption: "Where it started: our first logos and app designs" }] },
   },
   {
     when: "March 2022",
+    mark: "Mar 22",
+    rise: 0.17,
     year: "2022",
     title: "Paying a developer",
     body: [
       "In March 2022 I found a developer in India on LinkedIn and messaged him. That month I made the first payment, and development started.",
       "It was a struggle from the start, with delay after delay. I paid him every month until the end of 2024.",
     ],
-    became: { label: "Build With AI", href: "#next" },
+    media: { kind: "video", src: "/journey/byb-build-2022.mp4", poster: "/journey/byb-build-2022.jpg", ratio: "9:16", alt: "", caption: "An early build of the app on my phone, July 2022" },
   },
   {
     when: "June 2023",
+    mark: "Jun 23",
+    rise: 0.27,
     year: "2023",
     title: "Launch day, and everything that broke",
     body: [
       "We planned to launch in March 2023. While we waited, I started filming on my iPhone in November 2022 to build our Instagram and a waiting list.",
       "We launched in June 2023, three months late. There were bugs and problems everywhere, and every fix cost money we didn't have. So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
     ],
-    media: { kind: "video", src: "/journey/byb-2023.mp4", poster: "/journey/byb-2023.jpg", alt: "", caption: "Our app: studios near you, on a map, by the hour" },
-    became: { label: "Build With AI", href: "#next" },
+    media: { kind: "video", src: "/journey/ch03.mp4", poster: "/journey/ch03.jpg", alt: "", caption: "Filming studio visits for our Instagram from March 2023, and me at a Book Your Booth stand in August 2023", shots: [{ t: 0.0, caption: "Walking into a studio, March 2023" }, { t: 3.68, caption: "Another studio visit, May 2023" }, { t: 7.12, caption: "A studio's page on the app, inside that studio, July 2023" }, { t: 10.83, caption: "SM Studios, July 2023" }, { t: 12.28, caption: "VixMix Studios on the app, inside VixMix, August 2023" }, { t: 14.13, caption: "Heading into a session, September 2023" }, { t: 17.57, caption: "The Book Your Booth hoodie, October 2023" }, { t: 18.73, caption: "Me at a Book Your Booth stand, August 2023" }] },
   },
   {
     when: "2023 to January 2024",
+    mark: "Jan 24",
+    rise: 0.16,
     year: "2024",
-    title: "Learning to film, because I had to",
+    title: "Learning the art of marketing, because I had to",
     body: [
       "Around launch, studios started asking me to make content for them. I said no, to stay focused on Book Your Booth. I didn't see it then, but that was a business.",
       "From May to November 2023 I hired videographers and photographers, but they couldn't put what was in my head on screen. So in January 2024 I picked up a camera and taught myself, and spent that month in LA learning the craft.",
     ],
-    became: { label: "Film It Yourself", href: "#next" },
+    media: { kind: "video", src: "/journey/ch04.mp4", poster: "/journey/ch04.jpg", alt: "", caption: "Filming the videographers I hired in 2023, then learning my own camera in January 2024", shots: [{ t: 0.0, caption: "A videographer I hired, at Spins Studio, May 2023" }, { t: 3.88, caption: "Same session: him, the artist and the booth" }, { t: 7.73, caption: "Filming into the booth at Spins Studio, May 2023" }, { t: 10.76, caption: "Filming the videographer at VixMix Studios, August 2023" }, { t: 12.61, caption: "Then I picked up a camera myself, January 2024" }, { t: 14.46, caption: "Learning my Sony, January 2024" }, { t: 16.11, caption: "With the camera in LA, January 2024" }, { t: 17.65, caption: "Filming myself in Los Angeles, January 2024" }] },
+    became: { label: "Film It Yourself", href: "#film-it-yourself" },
   },
   {
     when: "July 2024",
+    mark: "Jul 24",
+    rise: 0.23,
     year: "2024",
     title: "Filming for other people",
     body: [
       "I started shooting for others: music videos, photography for brands and models, friends and family.",
       "It sharpened my skills and brought in extra cash. That kept me afloat, and every bit of it went back into Book Your Booth.",
     ],
+    media: { kind: "video", src: "/journey/ch05.mp4", poster: "/journey/ch05.jpg", ratio: "9:16", alt: "", caption: "On set for a night shoot in July 2024, then shoots from December 2025 and January 2026", shots: [{ t: 0.0, caption: "On set for a night shoot, July 2024" }, { t: 2.47, caption: "A car shoot, December 2025" }, { t: 4.03, caption: "Same night, setting up inside the car" }, { t: 5.18, caption: "A shoot at a boxing gym, January 2026" }, { t: 7.12, caption: "Same day, filming the ring" }] },
     became: { label: "1:1 calls", href: "#consult" },
   },
   {
     when: "February 2025",
+    mark: "Feb 25",
+    rise: 0.32,
     year: "2025",
-    title: "Studio Crash",
+    title: "Full rooms, running on empty",
     body: [
-      "In February 2025 I started Studio Crash, an event series. Artists came into studios on Book Your Booth and freestyled on camera, and the only way in was to book through the app.",
-      "It marketed the studios and brought bookings to the app. But I ran all of it myself: hosting, shooting, editing, and running the business.",
+      "In February 2025 I started Studio Crash. Artists came into studios on Book Your Booth and freestyled on camera, and the only way in was to book through the app. It marketed the studios and brought bookings to the app.",
+      "I was running live events at the same time, and they went really well. But I did all of it myself: directing, hosting, shooting, editing and running the business. By then I was burning out.",
     ],
-    media: { kind: "video", src: "/work/bybhub-crash.mp4", poster: "/work/bybhub-crash.jpg", alt: "", caption: "An ad I made for Studio Crash. The only way in was through the app." },
-    became: { label: "Film It Yourself", href: "#next" },
+    media: { kind: "video", src: "/journey/ch06.mp4", poster: "/journey/ch06.jpg", ratio: "9:16", alt: "", caption: "Directing artists for Studio Crash in February 2025, hosting our live event in March 2025, and the Studio Crash ad I made", shots: [{ t: 0.0, caption: "Directing an artist for Studio Crash, February 2025" }, { t: 3.88, caption: "Cueing the artist from behind my camera" }, { t: 6.53, caption: "Checking a take, February 2025" }, { t: 7.98, caption: "Camera rolling on an artist at SM Studios" }, { t: 9.53, caption: "A singer at the mic, same night" }, { t: 11.08, caption: "Checking the shot, February 2025" }, { t: 12.43, caption: "Our live event in the Orange Room, March 2025" }, { t: 13.78, caption: "Hosting on the mic" }, { t: 15.73, caption: "A full room that night" }, { t: 17.18, caption: "A full room in the Blue Room" }, { t: 20.28, caption: "Filming content on the floor after the show" }, { t: 22.93, caption: "Hyping up the artists from behind the camera" }, { t: 26.28, caption: "Closing the night on the mic" }, { t: 28.33, caption: "The Studio Crash ad I made" }] },
   },
   {
     when: "April 2025",
+    mark: "Apr 25",
+    rise: 0,
     year: "2025",
     title: "Putting it on hold",
     body: [
       "Momentum was picking up, but by then it was too late. The technical problems never stopped, and I couldn't find product-market fit while fighting the app.",
       "I was burned out and carrying all of it, and the money was running out. In April 2025 I put Book Your Booth on hold. Building the app had cost more than £70,000.",
     ],
-    media: { kind: "video", src: "/work/bybhub-cypher.mp4", poster: "/work/bybhub-cypher.jpg", alt: "", caption: "Beyond The Booth, our live cypher night" },
+    media: { kind: "video", src: "/journey/ch07.mp4", poster: "/journey/ch07.jpg", alt: "", caption: "Filmed later that year, November 2025" },
   },
   {
     when: "February 2026",
+    mark: "Feb 26",
+    rise: 0.1,
     year: "2026",
     title: "Starting again, in public",
     body: [
       "I started posting with no fixed plan, trying out what I cared about: the gym, business, marketing and tech. My first video was the story of losing that £70k.",
       "4angles was born around the same time and started paying. That gave me room to step back and properly learn AI.",
     ],
-    media: { kind: "video", src: "/work/story.mp4", poster: "/work/story.jpg", alt: "", caption: "My first post: losing £70k and starting again" },
-    became: { label: "Content OS", href: "#next" },
+    media: { kind: "video", src: "/work/story.mp4", ratio: "9:16", poster: "/work/story.jpg", alt: "", caption: "My first post: losing £70k and starting again" },
+    became: { label: "Content OS", href: "#content-os" },
     links: [{ label: "4angles", href: "https://4anglesagency.com" }],
   },
   {
     when: "April to November 2026",
+    mark: "Apr 26",
+    rise: 0.18,
     year: "2026",
     title: "Rebuilding it with AI",
     body: [
-      "In April 2026 I went back to Book Your Booth and worked out how AI could cut my costs and let me build faster. In September, development on bybhub began.",
+      "In April 2026 I went back to Book Your Booth and worked out how AI could cut my costs and let me build faster. In September, development on bybhub, the new Book Your Booth, began.",
       "The first version took nearly three years of paying a developer. Within a few months, bybhub was fully built, bigger and better.",
     ],
-    media: { kind: "video", src: "/work/bybhub-site.mp4", poster: "/work/bybhub-site-poster.jpg", alt: "", caption: "bybhub.io, built with AI", fit: "contain" },
-    became: { label: "Build With AI", href: "#next" },
+    media: { kind: "video", src: "/journey/ch09.mp4", poster: "/journey/ch09.jpg", ratio: "16:10", alt: "", caption: "Working on my laptop in LA in January and February 2026", shots: [{ t: 0.0, caption: "On a hill above LA at sunset, January 2026" }, { t: 2.47, caption: "Working on the car in LA, January 2026" }, { t: 4.92, caption: "On the laptop in bed in LA, February 2026" }] },
+    became: { label: "Build With AI", href: "#build-with-ai" },
     links: [{ label: "See bybhub", href: "https://bybhub.io" }],
   },
   {
     when: "Now",
+    mark: "Now",
+    rise: 1,
     year: "18K",
     title: "18K Intelligence",
     body: [
-      "Somewhere between January 2026 and now, it all connected. Everything from the last five years, the slow build, the bugs, the camera, the money I lost and the rebuild, is what I teach here.",
+      "Somewhere between January 2026 and now, it all connected. Everything from the last five years is what I teach here: the slow build, the bugs, the camera, the money I lost and the rebuild.",
       "18K Intelligence is that whole journey, laid out so you can learn it without the expensive parts.",
     ],
     media: site.portrait
       ? { kind: "image", src: site.portrait, alt: "Kwame, 18K Intelligence", caption: "Me, now" }
-      : { kind: "video", src: "/work/process.mp4", poster: "/work/process.jpg", alt: "", caption: "How I work now" },
-    links: [
-      { label: "Get the free kit", href: "#join" },
-      { label: "Book a 1:1 call", href: "#consult" },
-    ],
+      : { kind: "video", src: "/journey/now.mp4", poster: "/journey/now.jpg", alt: "", caption: "Me, on camera, documenting and spreading what I've learned", shots: [{ t: 0.0, caption: "Me, on camera" }, { t: 5.48, caption: "Documenting and spreading what I've learned" }] },
+    kit: true,
+    links: [{ label: `Or book a 1:1 call${site.consult.priceLabel ? `, ${site.consult.priceLabel}` : ""}`, href: "#consult" }],
   },
 ];
