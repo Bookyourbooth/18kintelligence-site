@@ -3,6 +3,8 @@ import { BookCall } from "@/components/book-call";
 import { BuyButton } from "@/components/buy-button";
 import { CaptureForm } from "@/components/capture-form";
 import { HeroMedia } from "@/components/hero-media";
+import { KitLink } from "@/components/kit-link";
+import { MobileMenu } from "@/components/mobile-menu";
 import { CookieSettingsButton } from "@/components/cookie-consent";
 import { Reels } from "@/components/reels";
 import { Journey } from "@/components/journey";
@@ -15,6 +17,13 @@ export default function Home() {
   const calUrl = process.env.CAL_CONSULT_URL ?? "";
   const live = site.products.filter((p) => p.live);
   const coming = site.products.filter((p) => !p.live);
+  const kitList = listOf(kitItems().map((k) => k.phrase));
+  const sections = [
+    ...(site.videos.length > 0 ? [{ label: "Work", href: "#work" }] : []),
+    { label: "My story", href: "#about" },
+    { label: "1:1 calls", href: "#consult" },
+    { label: "Courses", href: live.length > 0 ? "#products" : "#next" },
+  ];
 
   return (
     <>
@@ -24,13 +33,13 @@ export default function Home() {
             <b>18k</b>intelligence
           </a>
           <nav className="nav-links" aria-label="Main">
-            {site.videos.length > 0 && <a href="#work">Work</a>}
-            <a href="#about">My story</a>
-            <a href="#consult">1:1 calls</a>
-            <a href={live.length > 0 ? "#products" : "#next"}>Courses</a>
-            <a className="btn au" href="#join">
-              Get the free kit
-            </a>
+            {sections.map((l) => (
+              <a key={l.href} href={l.href}>
+                {l.label}
+              </a>
+            ))}
+            <KitLink className="btn">Get the free kit</KitLink>
+            <MobileMenu links={sections} />
           </nav>
         </div>
       </header>
@@ -39,17 +48,16 @@ export default function Home() {
         <div className="gut">
           <div className="wrap hero">
             <div className="hero-copy">
-              <h1>Build it and film it yourself</h1>
+              <h1>Build it with AI and film it yourself</h1>
               <p className="lede">
-                I&apos;m Kwame, a creative tech entrepreneur and the founder of 4angles, a marketing and software agency. My first app took
-                nearly three years and more than £70,000. I rebuilt it with AI in a few months. Each week I show you how I build, film and
-                market, so you can skip the expensive part.
+                I&apos;m Kwame, founder of 4angles. My first app took nearly three years and more than £70,000. I rebuilt it with AI in a
+                few months, and each week I show you how.
               </p>
               <CaptureForm
                 formId="join"
                 id="hero-email"
                 source="kit"
-                label={`Get the free Starter Kit: ${listOf(kitItems().map((k) => k.phrase))}.`}
+                label={`Get the free Starter Kit: ${kitList}.`}
                 button="Send me the kit"
                 note={
                   <>
@@ -114,8 +122,7 @@ export default function Home() {
             <div className="sec-head">
               <h2 id="ab-h">I learned it the expensive way</h2>
               <p className="lede">
-                Five years, two versions of the same app and more than £70,000. Scroll through how it happened, and what each part
-                became.
+                Five years, two versions of the same app and more than £70,000. Here&apos;s how it happened, and what each part became.
               </p>
             </div>
             <Journey steps={journey} />
@@ -176,7 +183,7 @@ export default function Home() {
               </div>
               <div className="products">
                 {live.map((p) => (
-                  <article className="product" key={p.slug}>
+                  <article className="product" id={p.slug} key={p.slug}>
                     <div className="cover">
                       {p.flagship && (
                         <span className="hallmark">
@@ -247,7 +254,7 @@ export default function Home() {
             </div>
             <ul className="upcoming-list">
               {coming.map((p) => (
-                <li key={p.slug}>
+                <li id={p.slug} key={p.slug}>
                   <div>
                     <b>
                       {p.name}
@@ -284,6 +291,14 @@ export default function Home() {
               <p className="lede">Calls, courses and access, answered.</p>
             </div>
             <div className="faq">
+              <details>
+                <summary>What&apos;s in the free Starter Kit?</summary>
+                <p>{kitList.charAt(0).toUpperCase() + kitList.slice(1)}. It&apos;s one page you can bookmark, and I add to it as I go.</p>
+              </details>
+              <details>
+                <summary>How often will you email me?</summary>
+                <p>Once a week, on building, filming and marketing. You can unsubscribe anytime.</p>
+              </details>
               <details>
                 <summary>What if I need to move or cancel my call?</summary>
                 <p>{site.consult.policy} After that there&apos;s no refund, but contact me and I&apos;ll try to help if something urgent came up.</p>
@@ -322,18 +337,18 @@ export default function Home() {
 
       <footer className="gut">
         <div className="wrap">
+          <a className="wordmark foot-mark" href="#top">
+            <b>18k</b>intelligence
+          </a>
           <div className="foot-top">
             <div style={{ display: "grid", gap: "14px" }}>
-              <a className="wordmark" href="#top" style={{ fontSize: "clamp(2.6rem,7vw,4rem)" }}>
-                <b>18k</b>intelligence
-              </a>
               <span className="hallmark" aria-label="Hallmark: 750, 18 karat">
                 <span>750</span>
                 <span>18K</span>
               </span>
               <p style={{ color: "var(--mute)", maxWidth: "40ch" }}>One email a week on building, filming and marketing.</p>
             </div>
-            <CaptureForm id="ft-email" source="newsletter" label="Get the weekly email" button="Subscribe" />
+            <CaptureForm id="ft-email" source="kit" label="Get the free Starter Kit and one email a week" button="Send me the kit" />
           </div>
           <div className="foot-bot">
             <div className="socials">

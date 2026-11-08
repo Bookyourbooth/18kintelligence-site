@@ -26,7 +26,7 @@ export function HeroMedia() {
           <video src="/work/mistakes.mp4" poster="/work/mistakes.jpg" muted loop playsInline preload="metadata" aria-hidden="true"></video>
         </a>
         <figcaption>
-          <b>Filmed it.</b> A reel I shot and edited myself.
+          <b>Filmed it.</b> <span className="hm-more">A reel I shot and edited myself.</span>
         </figcaption>
       </figure>
       <figure className="hm-build">
@@ -34,7 +34,7 @@ export function HeroMedia() {
           <video src="/work/hero-site.mp4" poster="/work/hero-site.jpg" muted loop playsInline preload="metadata" aria-hidden="true"></video>
         </a>
         <figcaption>
-          <b>Built it.</b> bybhub.io, made with AI.
+          <b>Built it.</b> <span className="hm-more">bybhub.io, made with AI.</span>
         </figcaption>
       </figure>
     </div>

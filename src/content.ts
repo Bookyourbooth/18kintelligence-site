@@ -115,10 +115,10 @@ export const site = {
   ] as { value: string; label: string; period: string; proof: string }[],
   /** Looping clips of real posts. Each tile opens the post on Instagram. */
   videos: [
-    { title: "A 7‑second reel that reached the most people", tag: "Reach", src: "/work/reach.mp4", poster: "/work/reach.jpg", href: "https://www.instagram.com/reel/DZ5alo8M8sv/" },
-    { title: "Losing £70k and starting again", tag: "Story", src: "/work/story.mp4", poster: "/work/story.jpg", href: "https://www.instagram.com/reel/DVLc9KQDDKr/" },
-    { title: "Five mistakes I made building bybhub", tag: "Lessons", src: "/work/mistakes.mp4", poster: "/work/mistakes.jpg", href: "https://www.instagram.com/reel/DXMA3zWjNEL/" },
-    { title: "My process in five steps, on a real client job", tag: "Tutorial", src: "/work/process.mp4", poster: "/work/process.jpg", href: "https://www.instagram.com/reel/DavWhHGMfwq/" },
+    { title: "A 7‑second reel that reached the most people", tag: "Reach", src: "/work/reels/reach.mp4", poster: "/work/reach.jpg", href: "https://www.instagram.com/reel/DZ5alo8M8sv/" },
+    { title: "Losing £70k and starting again", tag: "Story", src: "/work/reels/story.mp4", poster: "/work/story.jpg", href: "https://www.instagram.com/reel/DVLc9KQDDKr/" },
+    { title: "Five mistakes I made building bybhub", tag: "Lessons", src: "/work/reels/mistakes.mp4", poster: "/work/mistakes.jpg", href: "https://www.instagram.com/reel/DXMA3zWjNEL/" },
+    { title: "My process in five steps, on a real client job", tag: "Tutorial", src: "/work/reels/process.mp4", poster: "/work/process.jpg", href: "https://www.instagram.com/reel/DavWhHGMfwq/" },
   ] as { title: string; tag: string; src: string; poster: string; href: string }[],
   testimonials: [] as { quote: string; name: string; role: string }[],
 
@@ -195,11 +195,12 @@ export const site = {
 /** `phrase` is how the welcome email names each part. */
 export function kitItems(): { id: string; item: string; format: string; phrase: string }[] {
   const k = site.kitParts;
+  const checks = k.checklist.reduce((n, s) => n + s.items.length, 0);
   return [
     k.gear.length > 0 && { id: "gear", item: "My filmmaking gear list", format: "LIST", phrase: "my filmmaking gear list" },
     k.presetsFile && { id: "presets", item: "Editing presets & LUTs", format: "PACK", phrase: "my editing presets and LUTs" },
-    k.aiTools.length > 0 && { id: "ai-tools", item: "The AI tools I build with", format: "GUIDE", phrase: "the AI tools I build with" },
-    k.checklist.length > 0 && { id: "checklist", item: "First-website checklist", format: "CHECKLIST", phrase: "a first-website checklist" },
+    k.aiTools.length > 0 && { id: "ai-tools", item: "The AI tools I build with", format: "GUIDE", phrase: k.stack.length > 0 ? "the AI tools and stack I build with" : "the AI tools I build with" },
+    k.checklist.length > 0 && { id: "checklist", item: "First-website checklist", format: "CHECKLIST", phrase: `a ${checks}-point checklist for your first website` },
   ].filter((x): x is { id: string; item: string; format: string; phrase: string } => Boolean(x));
 }
 
@@ -249,6 +250,8 @@ export type JourneyStep = {
   /** What this chapter turned into on 18K, linked to that part of the page. */
   became?: { label: string; href: string };
   links?: { label: string; href: string }[];
+  /** Shows the Starter Kit signup in this chapter. */
+  kit?: boolean;
 };
 
 /**
@@ -270,7 +273,6 @@ export const journey: JourneyStep[] = [
       "My co-founder and I put our own money in and bootstrapped it.",
     ],
     media: { kind: "video", src: "/journey/ch01.mp4", poster: "/journey/ch01.jpg", alt: "", caption: "Showing the app outside VixMix Studios in March 2024, and our first logos and app designs", shots: [{ t: 0.0, caption: "Showing the app outside VixMix Studios, March 2024" }, { t: 1.38, caption: "The app opening on my phone, August 2023" }, { t: 3.42, caption: "Browsing studios on the app, March 2024" }, { t: 5.47, caption: "Where it started: our first logos and app designs" }] },
-    became: { label: "Build With AI", href: "#next" },
   },
   {
     when: "March 2022",
@@ -283,7 +285,6 @@ export const journey: JourneyStep[] = [
       "It was a struggle from the start, with delay after delay. I paid him every month until the end of 2024.",
     ],
     media: { kind: "video", src: "/journey/byb-build-2022.mp4", poster: "/journey/byb-build-2022.jpg", ratio: "9:16", alt: "", caption: "An early build of the app on my phone, July 2022" },
-    became: { label: "Build With AI", href: "#next" },
   },
   {
     when: "June 2023",
@@ -296,7 +297,6 @@ export const journey: JourneyStep[] = [
       "We launched in June 2023, three months late. There were bugs and problems everywhere, and every fix cost money we didn't have. So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
     ],
     media: { kind: "video", src: "/journey/ch03.mp4", poster: "/journey/ch03.jpg", alt: "", caption: "Filming studio visits for our Instagram from November 2022, and me at a Book Your Booth stand in August 2023", shots: [{ t: 0.0, caption: "Filming studios for our Instagram, November 2022" }, { t: 1.77, caption: "Walking into a studio, March 2023" }, { t: 3.52, caption: "Another studio visit, May 2023" }, { t: 5.18, caption: "A studio's page on the app, inside that studio, July 2023" }, { t: 7.12, caption: "SM Studios, July 2023" }, { t: 8.58, caption: "VixMix Studios on the app, inside VixMix, August 2023" }, { t: 10.43, caption: "Heading into a session, September 2023" }, { t: 11.98, caption: "The Book Your Booth hoodie, October 2023" }, { t: 13.13, caption: "Me at a Book Your Booth stand, August 2023" }] },
-    became: { label: "Build With AI", href: "#next" },
   },
   {
     when: "2023 to January 2024",
@@ -309,7 +309,7 @@ export const journey: JourneyStep[] = [
       "From May to November 2023 I hired videographers and photographers, but they couldn't put what was in my head on screen. So in January 2024 I picked up a camera and taught myself, and spent that month in LA learning the craft.",
     ],
     media: { kind: "video", src: "/journey/ch04.mp4", poster: "/journey/ch04.jpg", alt: "", caption: "Filming the videographers I hired in 2023, then learning my own camera in January 2024", shots: [{ t: 0.0, caption: "A videographer I hired, at Spins Studio, May 2023" }, { t: 1.87, caption: "Same session: him, the artist and the booth" }, { t: 3.72, caption: "Spins Studio, May 2023" }, { t: 5.38, caption: "Filming the videographer at VixMix Studios, August 2023" }, { t: 7.23, caption: "Then I picked up a camera myself, January 2024" }, { t: 9.08, caption: "Learning my Sony, January 2024" }, { t: 10.73, caption: "With the camera in LA, January 2024" }, { t: 12.28, caption: "Filming myself in Los Angeles, January 2024" }] },
-    became: { label: "Film It Yourself", href: "#next" },
+    became: { label: "Film It Yourself", href: "#film-it-yourself" },
   },
   {
     when: "July 2024",
@@ -335,7 +335,6 @@ export const journey: JourneyStep[] = [
       "I was running live events at the same time, and they went really well. But I did all of it myself: directing, hosting, shooting, editing and running the business. By then I was burning out.",
     ],
     media: { kind: "video", src: "/journey/ch06.mp4", poster: "/journey/ch06.jpg", ratio: "9:16", alt: "", caption: "Directing artists for Studio Crash in February 2025, hosting our live event in March 2025, and the Studio Crash ad I made", shots: [{ t: 0.0, caption: "Directing an artist for Studio Crash, February 2025" }, { t: 1.67, caption: "Cueing the artist from behind my camera" }, { t: 3.32, caption: "Checking a take, February 2025" }, { t: 4.78, caption: "Camera rolling on an artist at SM Studios" }, { t: 6.33, caption: "A singer at the mic, same night" }, { t: 7.88, caption: "Checking the shot, February 2025" }, { t: 9.23, caption: "Our live event in the Orange Room, March 2025" }, { t: 10.58, caption: "Hosting on the mic" }, { t: 12.53, caption: "A full room that night" }, { t: 13.98, caption: "Filming content on the floor after the show" }, { t: 15.23, caption: "Filming content on the floor after the show" }, { t: 16.48, caption: "Closing the night on the mic" }, { t: 18.53, caption: "The Studio Crash ad I made" }] },
-    became: { label: "Film It Yourself", href: "#next" },
   },
   {
     when: "April 2025",
@@ -360,7 +359,7 @@ export const journey: JourneyStep[] = [
       "4angles was born around the same time and started paying. That gave me room to step back and properly learn AI.",
     ],
     media: { kind: "video", src: "/work/story.mp4", ratio: "9:16", poster: "/work/story.jpg", alt: "", caption: "My first post: losing £70k and starting again" },
-    became: { label: "Content OS", href: "#next" },
+    became: { label: "Content OS", href: "#content-os" },
     links: [{ label: "4angles", href: "https://4anglesagency.com" }],
   },
   {
@@ -370,11 +369,11 @@ export const journey: JourneyStep[] = [
     year: "2026",
     title: "Rebuilding it with AI",
     body: [
-      "In April 2026 I went back to Book Your Booth and worked out how AI could cut my costs and let me build faster. In September, development on bybhub began.",
+      "In April 2026 I went back to Book Your Booth and worked out how AI could cut my costs and let me build faster. In September, development on bybhub, the new Book Your Booth, began.",
       "The first version took nearly three years of paying a developer. Within a few months, bybhub was fully built, bigger and better.",
     ],
     media: { kind: "video", src: "/journey/ch09.mp4", poster: "/journey/ch09.jpg", ratio: "16:10", alt: "", caption: "Working on my laptop in LA in January 2026 and at home in April 2026, and bybhub.io, built with AI", shots: [{ t: 0.0, caption: "On a hill above LA at sunset, January 2026" }, { t: 2.47, caption: "Working on the car in LA, January 2026" }, { t: 4.92, caption: "On the laptop in my room, April 2026" }, { t: 7.38, caption: "bybhub.io, built with AI" }] },
-    became: { label: "Build With AI", href: "#next" },
+    became: { label: "Build With AI", href: "#build-with-ai" },
     links: [{ label: "See bybhub", href: "https://bybhub.io" }],
   },
   {
@@ -384,15 +383,13 @@ export const journey: JourneyStep[] = [
     year: "18K",
     title: "18K Intelligence",
     body: [
-      "Somewhere between January 2026 and now, it all connected. Everything from the last five years, the slow build, the bugs, the camera, the money I lost and the rebuild, is what I teach here.",
+      "Somewhere between January 2026 and now, it all connected. Everything from the last five years is what I teach here: the slow build, the bugs, the camera, the money I lost and the rebuild.",
       "18K Intelligence is that whole journey, laid out so you can learn it without the expensive parts.",
     ],
     media: site.portrait
       ? { kind: "image", src: site.portrait, alt: "Kwame, 18K Intelligence", caption: "Me, now" }
       : { kind: "video", src: "/journey/now.mp4", poster: "/journey/now.jpg", alt: "", caption: "Me, on camera" },
-    links: [
-      { label: "Get the free kit", href: "#join" },
-      { label: "Book a 1:1 call", href: "#consult" },
-    ],
+    kit: true,
+    links: [{ label: `Or book a 1:1 call${site.consult.priceLabel ? `, ${site.consult.priceLabel}` : ""}`, href: "#consult" }],
   },
 ];
