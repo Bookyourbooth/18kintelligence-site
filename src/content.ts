@@ -275,7 +275,7 @@ export const journey: JourneyStep[] = [
       "In 2020, during Covid, I went to a studio for the first time, Pirate Studios, with friends. I loved it. Booking one was hard and jarring, so in September 2021 I came up with the idea: the Airbnb for studios.",
       "My co-founder and I put our own money in and bootstrapped it.",
     ],
-    media: { kind: "video", src: "/journey/ch01.mp4", poster: "/journey/ch01.jpg", alt: "", caption: "Showing the app outside VixMix Studios in March 2024, and our first logos and app designs", shots: [{ t: 0.0, caption: "Showing the app outside VixMix Studios, March 2024" }, { t: 5.83, caption: "The app opening on my phone, August 2023" }, { t: 7.88, caption: "Browsing studios on the app, March 2024" }, { t: 9.93, caption: "Where it started: our first logos and app designs" }] },
+    media: { kind: "video", src: "/journey/ch01.mp4", poster: "/journey/ch01.jpg", alt: "", caption: "Showing the app outside VixMix Studios in March 2024, and our first logos and app designs", shots: [{ t: 0.0, caption: "Showing the app outside VixMix Studios, March 2024" }, { t: 5.83, caption: "The app on my phone at our stand, August 2023" }, { t: 8.3, caption: "Browsing studios on the app, March 2024" }, { t: 12.35, caption: "Where it started: our first logos and app designs" }] },
   },
   {
     when: "March 2022",
@@ -299,7 +299,7 @@ export const journey: JourneyStep[] = [
       "We planned to launch in March 2023. While we waited, I started filming on my iPhone in November 2022 to build our Instagram and a waiting list.",
       "We launched in June 2023, three months late. There were bugs and problems everywhere, and every fix cost money we didn't have. So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
     ],
-    media: { kind: "video", src: "/journey/ch03.mp4", poster: "/journey/ch03.jpg", alt: "", caption: "Filming studio visits for our Instagram from November 2022, and me at a Book Your Booth stand in August 2023", shots: [{ t: 0.0, caption: "Filming studios for our Instagram, November 2022" }, { t: 1.77, caption: "Walking into a studio, March 2023" }, { t: 3.52, caption: "Another studio visit, May 2023" }, { t: 5.18, caption: "A studio's page on the app, inside that studio, July 2023" }, { t: 7.12, caption: "SM Studios, July 2023" }, { t: 8.58, caption: "VixMix Studios on the app, inside VixMix, August 2023" }, { t: 10.43, caption: "Heading into a session, September 2023" }, { t: 11.98, caption: "The Book Your Booth hoodie, October 2023" }, { t: 13.13, caption: "Me at a Book Your Booth stand, August 2023" }] },
+    media: { kind: "video", src: "/journey/ch03.mp4", poster: "/journey/ch03.jpg", alt: "", caption: "Filming studio visits for our Instagram from November 2022, and me at a Book Your Booth stand in August 2023", shots: [{ t: 0.0, caption: "Filming studios for our Instagram, November 2022" }, { t: 3.68, caption: "Walking into a studio, March 2023" }, { t: 7.53, caption: "Another studio visit, May 2023" }, { t: 10.97, caption: "A studio's page on the app, inside that studio, July 2023" }, { t: 14.68, caption: "SM Studios, July 2023" }, { t: 16.12, caption: "VixMix Studios on the app, inside VixMix, August 2023" }, { t: 17.97, caption: "Heading into a session, September 2023" }, { t: 21.43, caption: "The Book Your Booth hoodie, October 2023" }, { t: 22.57, caption: "Me at a Book Your Booth stand, August 2023" }] },
   },
   {
     when: "2023 to January 2024",
