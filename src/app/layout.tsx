@@ -13,8 +13,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: "18K Intelligence · Build, film, teach", template: "%s · 18K Intelligence" },
   description,
-  openGraph: { title: "18K Intelligence · Build it and film it yourself", description, siteName: "18K Intelligence", type: "website" },
-  twitter: { card: "summary_large_image", title: "18K Intelligence · Build it and film it yourself", description },
+  openGraph: { title: "18K Intelligence · Build it with AI and take it to market", description, siteName: "18K Intelligence", type: "website" },
+  twitter: { card: "summary_large_image", title: "18K Intelligence · Build it with AI and take it to market", description },
 };
 
 export const viewport: Viewport = { themeColor: "#0E0D0F", viewportFit: "cover" };
