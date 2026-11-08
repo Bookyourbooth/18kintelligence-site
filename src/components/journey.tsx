@@ -326,9 +326,9 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
                         Became <b>{s.became.label}</b>
                       </a>
                     )}
-                    {s.links?.map((l) => (
+                    {s.links?.map((l, k) => (
                       <a
-                        className="text-link"
+                        className={i === steps.length - 1 ? (k === 0 ? "btn au" : "btn") : "text-link"}
                         key={l.href}
                         href={l.href}
                         {...(l.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}

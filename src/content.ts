@@ -241,8 +241,9 @@ export type JourneyStep = {
 /**
  * The About section: Kwame's journey, told by Kwame (Nov 2026).
  * Chapters without media show their year until a photo or clip is added.
- * The 2021 and June 2023 clips are made from Kwame's Canva uploads (Aug 2022 to Apr 2025), so their captions name no dates.
- * Wanted: a music video or shoot from 2024, and a portrait for "Now".
+ * The 2021 clip is made from Kwame's Canva uploads (Aug 2022 to Apr 2025), so its caption names no date.
+ * Other pictures come from Kwame's Photos library and the LaCie drive (picked 8 Nov 2026); each caption gives when it was filmed.
+ * Wanted: a screen recording of building with Claude Code for the rebuild chapter.
  */
 export const journey: JourneyStep[] = [
   {
@@ -268,6 +269,7 @@ export const journey: JourneyStep[] = [
       "In March 2022 I found a developer in India on LinkedIn and messaged him. That month I made the first payment, and development started.",
       "It was a struggle from the start, with delay after delay. I paid him every month until the end of 2024.",
     ],
+    media: { kind: "video", src: "/journey/byb-build-2022.mp4", poster: "/journey/byb-build-2022.jpg", ratio: "9:16", alt: "", caption: "An early build of the app on my phone, July 2022" },
     became: { label: "Build With AI", href: "#next" },
   },
   {
@@ -280,7 +282,7 @@ export const journey: JourneyStep[] = [
       "We planned to launch in March 2023. While we waited, I started filming on my iPhone in November 2022 to build our Instagram and a waiting list.",
       "We launched in June 2023, three months late. There were bugs and problems everywhere, and every fix cost money we didn't have. So we downsized, fixed what mattered most first, and learned to move slowly and patiently.",
     ],
-    media: { kind: "video", src: "/journey/byb-2023.mp4", poster: "/journey/byb-2023.jpg", alt: "", caption: "Our app: studios near you, on a map, by the hour" },
+    media: { kind: "image", src: "/journey/byb-stand-2023.jpg", alt: "Kwame at a Book Your Booth stand, holding up an Instagram frame with the Book Your Booth page", caption: "Me at a Book Your Booth stand, August 2023" },
     became: { label: "Build With AI", href: "#next" },
   },
   {
@@ -293,6 +295,7 @@ export const journey: JourneyStep[] = [
       "Around launch, studios started asking me to make content for them. I said no, to stay focused on Book Your Booth. I didn't see it then, but that was a business.",
       "From May to November 2023 I hired videographers and photographers, but they couldn't put what was in my head on screen. So in January 2024 I picked up a camera and taught myself, and spent that month in LA learning the craft.",
     ],
+    media: { kind: "video", src: "/journey/la-2024.mp4", poster: "/journey/la-2024.jpg", alt: "", caption: "Filming myself in Los Angeles, January 2024" },
     became: { label: "Film It Yourself", href: "#next" },
   },
   {
@@ -305,6 +308,7 @@ export const journey: JourneyStep[] = [
       "I started shooting for others: music videos, photography for brands and models, friends and family.",
       "It sharpened my skills and brought in extra cash. That kept me afloat, and every bit of it went back into Book Your Booth.",
     ],
+    media: { kind: "video", src: "/journey/filming-2024.mp4", poster: "/journey/filming-2024.jpg", ratio: "9:16", alt: "", caption: "Behind the scenes on a night shoot, July 2024" },
     became: { label: "1:1 calls", href: "#consult" },
   },
   {
@@ -330,7 +334,7 @@ export const journey: JourneyStep[] = [
       "Momentum was picking up, but by then it was too late. The technical problems never stopped, and I couldn't find product-market fit while fighting the app.",
       "I was burned out and carrying all of it, and the money was running out. In April 2025 I put Book Your Booth on hold. Building the app had cost more than £70,000.",
     ],
-    media: { kind: "video", src: "/work/bybhub-cypher.mp4", poster: "/work/bybhub-cypher.jpg", alt: "", caption: "Beyond The Booth, our live cypher night" },
+    media: { kind: "video", src: "/journey/on-hold-2025.mp4", poster: "/journey/on-hold-2025.jpg", alt: "", caption: "Filmed later that year, November 2025" },
   },
   {
     when: "February 2026",
@@ -372,7 +376,7 @@ export const journey: JourneyStep[] = [
     ],
     media: site.portrait
       ? { kind: "image", src: site.portrait, alt: "Kwame, 18K Intelligence", caption: "Me, now" }
-      : { kind: "video", src: "/work/process.mp4", ratio: "9:16", poster: "/work/process.jpg", alt: "", caption: "How I work now" },
+      : { kind: "video", src: "/journey/now.mp4", poster: "/journey/now.jpg", alt: "", caption: "Me, on camera" },
     links: [
       { label: "Get the free kit", href: "#join" },
       { label: "Book a 1:1 call", href: "#consult" },
